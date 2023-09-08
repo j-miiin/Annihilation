@@ -7,9 +7,4 @@ public class EasyMeteor : Meteor
     public EasyMeteor() : base("EM", 1)
     {
     }
-
-    private void Awake()
-    {
-        spriteRenderer.color = Color.white;
-    }
 }

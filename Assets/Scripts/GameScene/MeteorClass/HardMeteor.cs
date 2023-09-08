@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class HardMeteor : Meteor
 {
-    public HardMeteor() : base("HM", 5)
+    public HardMeteor() : base("HM", 3)
     {
-        
-    }
-    private void Awake()
-    {
-        spriteRenderer.color = Color.red;
     }
 }

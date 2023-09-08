@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class NormalMeteor : Meteor
 {
-    public NormalMeteor() : base("NM", 3)
+    public NormalMeteor() : base("NM", 2)
     {
-
-    }
-
-    private void Awake()
-    {
-        spriteRenderer.color = Color.gray;
     }
 }
+
+
