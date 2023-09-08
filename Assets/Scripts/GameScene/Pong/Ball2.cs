@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Ball2 : MonoBehaviour
 {
-    public float speed;
+    const float C_RADIAN = 180f;
     public Rigidbody2D rigidbody;
+    public float speed;
 
-    
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
