@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Wall
+  - TopWall
   - Ball
-  - Meteor
   layers:
   - Default
   - TransparentFX
