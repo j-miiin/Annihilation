@@ -18,23 +18,22 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // StageManager에서 stage 정보 가져오는 부분
-        _curStage = StageManager.SM.GetStage();
+        //_curStage = StageManager.SM.GetStage();
+        _curStage = 1;
         if (_curStage == 1)
         {
-            
+            // TODO SetStageInfo 인자 값 설정
+            _stage.SetStageInfo("EasyStageGrid", "");
         }
         else if (_curStage == 2)
         {
-            
+            _stage.SetStageInfo("NormalStageGrid", "");
         }
         else if (_curStage == 3)
         {
-           
+            _stage.SetStageInfo("HardStageGrid", "");
         }
-
-        // TODO SetStageInfo 인자 값 설정
-        // _curStage = StageManager.S.GetStage();
-        //_stage.SetStageInfo("test", "test");
+       
         _isOver = false;
     }
 

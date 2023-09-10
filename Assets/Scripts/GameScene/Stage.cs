@@ -46,8 +46,8 @@ public class Stage : MonoBehaviour
         Time.timeScale = 1f;
         _isOver = false;
 
-        // TODO MeteorControllerPrefab 완성 시 주석 풀기
-        //Instantiate(Resources.Load<GameObject>(_meteorPrefabName));
+        // 운석 grid 생성
+        Instantiate(Resources.Load<GameObject>("Prefabs/Stages/"+_meteorPrefabName));
 
         // TODO 백그라운드 이미지 위치, 이름 논의 후 이미지 불러오는 코드 다시 설정
         _canvas = GameObject.Find(CANVAS);

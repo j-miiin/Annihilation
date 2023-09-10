@@ -8,6 +8,8 @@ TagManager:
   - TopWall
   - Ball
   - Paddle
+  - Meteor
+  - Bottom
   layers:
   - Default
   - TransparentFX

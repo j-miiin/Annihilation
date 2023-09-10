@@ -28,21 +28,18 @@ public class StageManager : MonoBehaviour
         if (swipeUI.StageLevelText.text == "EASY")
         {
             stageValue = 1;
-            //Debug.Log(stageValue);
         }
         else if (swipeUI.StageLevelText.text == "NORMAL")
         {
 			stageValue = 2;
-			//Debug.Log(stageValue);
 		}
 		else if (swipeUI.StageLevelText.text == "HARD")
 		{
 			stageValue = 3;
-			//Debug.Log(stageValue);
 		}
-		//SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("GameScene");
     }
-    
+
     void Start()
     {
         
