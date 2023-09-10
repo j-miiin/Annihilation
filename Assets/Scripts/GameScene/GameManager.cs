@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         // TODO StageManager에서 stage 정보 가져오는 부분 연결
         // TODO SetStageInfo 인자 값 설정
         // _curStage = StageManager.S.GetStage();
-        _stage.SetStageInfo("test", "test");
+        //_stage.SetStageInfo("test", "test");
         _isOver = false;
     }
 

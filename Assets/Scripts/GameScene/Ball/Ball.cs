@@ -45,7 +45,7 @@ public class Ball : MonoBehaviour
             tmp.z = (C_RADIAN * 2) - tmp.z;
             transform.eulerAngles = tmp;
         }
-        else if (collision.collider.CompareTag("Brick"))    // 미완성
+        else if (collision.collider.CompareTag("Meteor"))    // 미완성
         {
             Vector3 tmp = transform.eulerAngles;
             tmp.z = (C_RADIAN * 2) - tmp.z;

@@ -56,6 +56,6 @@ public class Meteor : MonoBehaviour
 
         spriteRenderer.enabled = false;
         yield return new WaitForSeconds(1);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
