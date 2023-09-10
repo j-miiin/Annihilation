@@ -4,42 +4,63 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StageSelectManager : MonoBehaviour
+public class StageManager : MonoBehaviour
 {
-    private int stage = 1;
+    private int stageValue = 1;
 
-    public static StageSelectManager SSM;
+    public static StageManager SM;
 
 	[Header("씬 페이드 시간")]
 	[SerializeField] float fadeValue = 1f;
 	[SerializeField] float fadeTime = 1f;
 
 	
-
+    //StageManager를 GameManager로 가져감
 	private void Awake()
     {
-        SSM = this;
+        SM = this;
         DontDestroyOnLoad(this);
     }
-    // Start is called before the first frame update
+
+    //스테이지 이미지를 눌렀을 때 스테이지 레벨 텍스트에 따라 스테이지 벨류값 부여 후 GameScene 로드
+    public void gameStart(SwipeUI swipeUI)
+    {
+        if (swipeUI.StageLevelText.text == "EASY")
+        {
+            stageValue = 1;
+            //Debug.Log(stageValue);
+        }
+        else if (swipeUI.StageLevelText.text == "NORMAL")
+        {
+			stageValue = 2;
+			//Debug.Log(stageValue);
+		}
+		else if (swipeUI.StageLevelText.text == "HARD")
+		{
+			stageValue = 3;
+			//Debug.Log(stageValue);
+		}
+		//SceneManager.LoadScene("GameScene");
+    }
+    
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
     }
 
-    public int getStage()
+    public int GetStage()
     {
-        return stage;
+        return stageValue;
     }
 
     public void SetStage(int value)
     {
-        SSM.stage = value;
+        SM.stageValue = value;
     }
 }
