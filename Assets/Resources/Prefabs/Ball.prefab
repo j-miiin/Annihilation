@@ -161,5 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b35903a734f4a4d9e98579f2d34fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 4657389426788176653}
-  paddle: {fileID: 0}
+  ball: {fileID: 4657389426788176653}
+  paddle: {fileID: 4469887951486600752, guid: c6f4545d712784642a607ebaaeb4a4e7, type: 3}
+  Space: 0
