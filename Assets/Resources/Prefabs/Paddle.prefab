@@ -171,6 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40053ff4a7bd3f24c867a80c8fc7d3bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 4469887951486600752}
+  paddle: {fileID: 4469887951486600752}
   Left: 97
   Right: 100

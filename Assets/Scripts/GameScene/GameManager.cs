@@ -17,7 +17,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // TODO StageManager에서 stage 정보 가져오는 부분 연결
+        // StageManager에서 stage 정보 가져오는 부분
+        _curStage = StageManager.SM.GetStage();
+        if (_curStage == 1)
+        {
+            
+        }
+        else if (_curStage == 2)
+        {
+            
+        }
+        else if (_curStage == 3)
+        {
+           
+        }
+
         // TODO SetStageInfo 인자 값 설정
         // _curStage = StageManager.S.GetStage();
         //_stage.SetStageInfo("test", "test");

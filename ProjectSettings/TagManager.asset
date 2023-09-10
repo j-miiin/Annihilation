@@ -7,7 +7,7 @@ TagManager:
   - Wall
   - TopWall
   - Ball
-  - Meteor
+  - Paddle
   layers:
   - Default
   - TransparentFX
