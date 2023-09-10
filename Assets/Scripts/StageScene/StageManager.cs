@@ -37,7 +37,7 @@ public class StageManager : MonoBehaviour
 		{
 			stageValue = 3;
 		}
-        SceneManager.LoadScene("GameScene");
+        if (stageValue <= PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS)) SceneManager.LoadScene("GameScene");
     }
 
     void Start()
