@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - TopWall
+  - Ball
+  - Paddle
+  - Meteor
+  - Bottom
   layers:
   - Default
   - TransparentFX
