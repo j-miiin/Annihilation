@@ -60,9 +60,9 @@ public class Ball : MonoBehaviour
             if (_isShoot == true)
             {
                 ContactPoint2D contact = collision.contacts[0];
-                Vector2 pos = contact.point;                    // 공이 부딪힌 위치 (패들위치x)
-                Vector2 paddlePos = paddle.transform.position;  // 패들 위치를 받아와서 공이 부딪힌 위치의 x좌표를 빼주면 패들 중앙으로 부터 공이 어디 부딪혔는지 x좌표 값이 나옴
-                Vector2 shootPos = pos - paddlePos;             // 그 값의 범위를 쪼개서 발사각을 정해주기 -0.4 ~ 0.4, 0.4 넘어가면 최대각
+                Vector2 pos = contact.point;                    
+                Vector2 paddlePos = paddle.transform.position;  
+                Vector2 shootPos = pos - paddlePos;             
                 int r = MakeAngle(shootPos.x);
                 tmp.z = _shootAngles[r];
                 transform.eulerAngles = tmp;
@@ -74,7 +74,7 @@ public class Ball : MonoBehaviour
                 transform.eulerAngles = tmp;
             }
         }
-        else if (collision.collider.CompareTag("Brick"))    // 미완성
+        else if (collision.collider.CompareTag("Meteor"))    // 미완성
         {
             tmp.z = (C_RADIAN * 2) - tmp.z;
             transform.eulerAngles = tmp;
