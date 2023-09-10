@@ -73,12 +73,16 @@ public class Ball : MonoBehaviour
                 tmp.z = _shootAngles[r];
                 transform.eulerAngles = tmp;
             }
-        }
+        } 
         else if (collision.collider.CompareTag("Meteor"))    // 미완성
         {
             tmp.z = (C_RADIAN * 2) - tmp.z;
             transform.eulerAngles = tmp;
             // 벽돌 부숴지는 코드
+        }
+        else if (collision.collider.CompareTag("Bottom"))
+        {
+            GameManager.I.GameOver();
         }
     }
     public int MakeAngle(float x)
