@@ -7,10 +7,9 @@ public class Paddle : MonoBehaviour
 {
     public Rigidbody2D rigidbody;
 
-    const float C_RADIAN = 180f;
     private float _rotationX;
     private float _speed = 3.0f;
-    private float[] _shootAngles = { -60, -45, -30, -15, 15, 30, 45, 60 };
+    
 
     public KeyCode Left;
     public KeyCode Right;
@@ -30,13 +29,6 @@ public class Paddle : MonoBehaviour
  
     private void OnCollisionEnter2D(Collision2D collision)      // 패들에 닿을때마다 무작위 각도 발사
     {
-        if (collision.collider.CompareTag("Ball"))
-        {
-            Vector3 tmp = collision.transform.eulerAngles;
-            int r = Random.Range(0, _shootAngles.Length);
-            tmp.z = _shootAngles[r];
-            collision.transform.eulerAngles = tmp;
-        }
         // if (collision.tag == "Item")
     }
  
