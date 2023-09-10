@@ -5,18 +5,17 @@ using UnityEngine.UIElements;
 
 public class Paddle : MonoBehaviour
 {
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D paddle;
 
     private float _rotationX;
     private float _speed = 3.0f;
     
-
     public KeyCode Left;
     public KeyCode Right;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        paddle = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -24,7 +23,7 @@ public class Paddle : MonoBehaviour
         _rotationX = 0f;
         if (Input.GetKey(Left)) { _rotationX -= 1f; }
         if (Input.GetKey(Right)) { _rotationX += 1f; }
-        rigidbody.velocity = new Vector3(_rotationX * _speed, 0, 0);
+        paddle.velocity = new Vector3(_rotationX * _speed, 0, 0);
     }
  
     private void OnCollisionEnter2D(Collision2D collision)      // 패들에 닿을때마다 무작위 각도 발사
