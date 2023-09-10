@@ -8,10 +8,12 @@ public class Meteor : MonoBehaviour
     public int Hardness { get; set; }
 
     private SpriteRenderer spriteRenderer;
+    private ParticleSystem particle;
+    private BoxCollider2D boxCollider;
 
     private Color[] hardnessColors;
 
-    private ParticleSystem particle;
+
 
     public Meteor(string name, int hardness)
     {
@@ -29,9 +31,10 @@ public class Meteor : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = hardnessColors[Hardness - 1];
-
+        boxCollider = GetComponent<BoxCollider2D>();
         particle = GetComponentInChildren<ParticleSystem>();
+
+        spriteRenderer.color = hardnessColors[Hardness - 1];
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -55,7 +58,8 @@ public class Meteor : MonoBehaviour
         particle.Play();
 
         spriteRenderer.enabled = false;
-        yield return new WaitForSeconds(1);
-        gameObject.SetActive(false);
+        boxCollider.enabled = false;
+        yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
+        Destroy(gameObject);
     }
 }

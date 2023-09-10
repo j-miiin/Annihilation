@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
         // TODO SetStageInfo 인자 값 설정
         // _curStage = StageManager.S.GetStage();
-        _stage.SetStageInfo("test", "test");
+        //_stage.SetStageInfo("test", "test");
         _isOver = false;
     }
 
