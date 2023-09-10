@@ -24,13 +24,13 @@ public class Ball : MonoBehaviour
     {
         if (_isShoot == true)
         {
-            Vector3 pos = paddle.position;
+            Vector3 pos = ball.position;
             Vector3 movePos = pos + transform.up * _speed * Time.deltaTime;
-            paddle.MovePosition(movePos);
+            ball.MovePosition(movePos);
         }
         else
         {
-            paddle.transform.position = paddle.transform.position + new Vector3(0, 0.13f, 0);
+            ball.transform.position = paddle.transform.position + new Vector3(0, 0.13f, 0);
             if (Input.GetKey(Space))
                 _isShoot = true;
         }
