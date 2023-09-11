@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
@@ -10,12 +11,17 @@ public class StageManager : MonoBehaviour
 
     public static StageManager SM;
 
-	[Header("¾À ÆäÀÌµå ½Ã°£")]
+	[Header("ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ã°ï¿½")]
 	[SerializeField] float fadeValue = 1f;
 	[SerializeField] float fadeTime = 1f;
-	
-    //StageManager¸¦ GameManager·Î °¡Á®°¨
-	private void Awake()
+
+    public TMP_Text starRatingText;
+    public Image star1Image;
+    public Image star2Image;
+    public Image star3Image;
+
+    //StageManagerï¿½ï¿½ GameManagerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private void Awake()
     {
         if (SM == null)
         {
@@ -29,7 +35,7 @@ public class StageManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    //½ºÅ×ÀÌÁö ÀÌ¹ÌÁö¸¦ ´­·¶À» ¶§ ½ºÅ×ÀÌÁö ·¹º§ ÅØ½ºÆ®¿¡ µû¶ó ½ºÅ×ÀÌÁö º§·ù°ª ºÎ¿© ÈÄ GameScene ·Îµå
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½ ï¿½ï¿½ GameScene ï¿½Îµï¿½
     public void gameStart(SwipeUI swipeUI)
     {
         if (swipeUI.StageLevelText.text == "EASY")
@@ -47,6 +53,31 @@ public class StageManager : MonoBehaviour
         if (stageValue <= PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS)) SceneManager.LoadScene("GameScene");
     }
 
+    void Start()
+    {
+        int starRating = PlayerPrefs.GetInt("StarRating", 0);
+
+        if (starRatingText != null)
+        {
+            starRatingText.text = "Star Rating: " + starRating.ToString();
+        }
+
+        if (star1Image != null && star2Image != null && star3Image != null)
+        {
+            SetStarImage(starRating);
+        }
+    }
+
+    public void SetStarImage(int starRating)
+    {
+        Sprite filledStar = Resources.Load<Sprite>("Image/StarImage/filled_star_img");
+        Sprite emptyStar = Resources.Load<Sprite>("Image/StarImage/empty_star_img");
+
+        star1Image.sprite = (starRating >= 1) ? filledStar : emptyStar;
+        star2Image.sprite = (starRating >= 2) ? filledStar : emptyStar;
+        star3Image.sprite = (starRating >= 3) ? filledStar : emptyStar;
+    }
+
     public int GetStage()
     {
         return stageValue;
@@ -55,5 +86,10 @@ public class StageManager : MonoBehaviour
     public void SetStage(int value)
     {
         SM.stageValue = value;
+    }
+
+    public void DeletePlayerInfo()
+    {
+        PlayerPrefs.DeleteKey("StarRating");
     }
 }

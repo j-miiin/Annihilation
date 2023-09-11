@@ -66,31 +66,28 @@ public class StageUIManager : MonoBehaviour
     // 스테이지 종료 시 Stage End Panel의 상태를 Set
     public void SetStageEndPanel(bool isClear, int score)
     {
+        string clearText = isClear ? STAGE_CLEAR : STAGE_FAIL;
+        clearText += " Score: " + GameManager.I.finalScore;
+        _gameOverText.text = clearText;
 
-        if (isClear)
-        {
-            _gameOverText.text = STAGE_CLEAR;
-        }
-        else
-        {
-            _gameOverText.text = STAGE_FAIL;
-        }
+        SetStarImage(GameManager.I.starRating);
 
-        SetStarImage(score);
         SetBtn();
 
         _stageEndPanelImage.SetActive(true);
     }
 
+
     // 점수에 따른 별 이미지 세팅
-    private void SetStarImage(int score)
+    private void SetStarImage(int starRating)
     {
+
         Sprite filledStar = Resources.Load<Sprite>("Image/StarImage/filled_star_img");
         Sprite emptyStar = Resources.Load<Sprite>("Image/StarImage/empty_star_img");
 
-        _star1Image.sprite = (score > 30) ? filledStar : emptyStar;
-        _star2Image.sprite = (score > 60) ? filledStar : emptyStar;
-        _star3Image.sprite = (score > 90) ? filledStar : emptyStar;
+        _star1Image.sprite = (starRating >= 1) ? filledStar : emptyStar;
+        _star2Image.sprite = (starRating >= 2) ? filledStar : emptyStar;
+        _star3Image.sprite = (starRating >= 3) ? filledStar : emptyStar;
     }
 
     // Stage End Panel의 Home, Retry, Next Stage 버튼에 Click Listener를 달아줌

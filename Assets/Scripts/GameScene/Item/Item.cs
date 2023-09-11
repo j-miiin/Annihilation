@@ -6,64 +6,45 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Item : MonoBehaviour
 {
-    public Rigidbody2D item;
+    public GameObject item;
     public SpriteRenderer itemColor;
     public Rigidbody2D paddle;
     public Rigidbody2D ball;
-    public Rigidbody2D meteor;
-    private bool _isDrop = false;
+    // private bool _isDrop = false;
 
-    private string[] _colors = { "red", "yellow", "green", "blue", "cyan" };
-    
     void Start()
     {
-        item = GetComponent<Rigidbody2D>();
         itemColor = GetComponent<SpriteRenderer>();
         paddle = GetComponent<Rigidbody2D>();
         ball = GetComponent<Rigidbody2D>();
-        _isDrop = true;
+        // _isDrop = true;
     }
-
     void Update()
     {
-        if (_isDrop == true)
-        {
-            item.velocity = new Vector3(0f, -2, 0f);
-        }
+        
     }
     public void GetItem()
     {
-
-    }
-    public void RandomItem()
-    {
-        int x = Random.Range(0, 5); // 5대신 10 하면 20%에서 10%
-        if (x == 0)
+        switch (item.name)
         {
-            ItemGenerator(meteor.transform.position);
-        }
-        else { }
-    }
-    void ItemGenerator(Vector2 Meteor)
-    {
-        int c = Random.Range(0, _colors.Length);
-        string currentName = "";
-        switch (c)
-        {
-            case 0:
-                itemColor.color = Color.red;
+            case "Item_paddle_small":
+                paddle.transform.localScale -= new Vector3(0.3f, 0.0f, 0.0f);
+                Debug.Log("Get Item_paddle_small");
                 break;
-            case 1:
-                itemColor.color = Color.yellow;
+            case "Item_ball_fast":
+                Vector2 dir = ball.velocity.normalized;
+                ball.AddForce(dir * 5.0f);
+                Debug.Log("Get Item_ball_fast");
                 break;
-            case 2:
-                itemColor.color = Color.green;
+            case "Item_paddle_big":
+                paddle.transform.localScale += new Vector3(0.3f, 0.0f, 0.0f);
+                Debug.Log("Get Item_paddle_big");
                 break;
-            case 3:
-                itemColor.color = Color.blue;
+            case "Item_ball_fireball":
+                Debug.Log("Get Item_ball_fireball");
                 break;
-            case 4:
-                itemColor.color = Color.cyan;
+            case "Item_paddle_shoot":
+                Debug.Log("Get Item_paddle_shoot");
                 break;
         }
     }

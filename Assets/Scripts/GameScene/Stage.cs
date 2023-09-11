@@ -7,12 +7,12 @@ using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
-    // ¿î¼® ºí·° grid ÇÁ¸®ÆÕ
+    // ï¿½î¼® ï¿½ï¿½ï¿½ï¿½ grid ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private string _meteorPrefabName;
-    // ¹è°æ ÀÌ¹ÌÁö
+    // ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
     private string _backgroundImage;
 
-    private bool _isOver;   // ½ºÅ×ÀÌÁö ½ÇÆÐ Á¶°Ç ´Þ¼º ½Ã GameManager°¡ true·Î ¹Ù²ãÁÖ´Â °ª
+    private bool _isOver;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ ï¿½ï¿½ GameManagerï¿½ï¿½ trueï¿½ï¿½ ï¿½Ù²ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½
 
     void Start()
     {
@@ -39,14 +39,14 @@ public class Stage : MonoBehaviour
         Instantiate(Resources.Load<GameObject>("Prefabs/Stages/" + _meteorPrefabName));
     }
 
-    //¸ðµç ¿î¼® ÆÄ±« ¿©ºÎ È®ÀÎ
+    //ï¿½ï¿½ï¿½ ï¿½î¼® ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     private bool AllMeteorsDestroyed()
     {
         GameObject[] meteors = GameObject.FindGameObjectsWithTag("Meteor");
         return meteors.Length == 0;
     }
 
-    // isClear == true ÀÌ¸é ½ºÅ×ÀÌÁö Å¬¸®¾î, false ÀÌ¸é ½ÇÆÐ
+    // isClear == true ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½, false ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void GameOver(bool isClear)
     {
         Time.timeScale = 0f;
@@ -56,17 +56,17 @@ public class Stage : MonoBehaviour
             PlayerPrefs.SetInt(StringKey.LOCKED_STAGE_PREFS, PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS) + 1);
         }
 
-        StageUIManager.S.SetStageEndPanel(isClear, 70);
+        StageUIManager.S.SetStageEndPanel(isClear, GameManager.I.starRating);
     }
 
-    // GameManager¿¡¼­ È£ÃâÇÏ¿© Stage Á¤º¸ ¼³Á¤
+    // GameManagerï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï¿ï¿½ Stage ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SetStageInfo(string meteorPrefabName, string backgroundImage)
     {
         _meteorPrefabName = meteorPrefabName;
         _backgroundImage = backgroundImage;
     }
 
-    // GameManager¿¡¼­ ½ºÅ×ÀÌÁö ½ÇÆÐ Á¶°Ç ´Þ¼º ½Ã È£Ãâ
+    // GameManagerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
     public void StageFail()
     {
         _isOver = true;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,15 @@ public class GameManager : MonoBehaviour
     private int _curStage;
     private bool _isOver;
 
+    public int finalScore = 0;
+    public int score = 0;
+    public TMP_Text scoreText;
+
+    public int starRating = 0;
+
+    private float _runningTime = 0f;
+    public TMP_Text timeText;
+
     private void Awake()
     {
         I = this;
@@ -18,12 +28,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // StageManager¿¡¼­ stage Á¤º¸ °¡Á®¿À´Â ºÎºÐ
+        // StageManagerï¿½ï¿½ï¿½ï¿½ stage ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
         //_curStage = StageManager.SM.GetStage();
         _curStage = 1;
         if (_curStage == 1)
         {
-            // TODO SetStageInfo ÀÎÀÚ °ª ¼³Á¤
+            // TODO SetStageInfo ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             _stage.SetStageInfo("NewEasyStageGrid", "");
         }
         else if (_curStage == 2)
@@ -36,6 +46,8 @@ public class GameManager : MonoBehaviour
         }
        
         _isOver = false;
+
+        starRating = PlayerPrefs.GetInt(StringKey.STAR_RATING_PREFS, 0);
     }
 
     void Update()
@@ -44,6 +56,13 @@ public class GameManager : MonoBehaviour
         {
             _stage.StageFail();
         }
+
+        _runningTime += Time.deltaTime;
+        timeText.text = _runningTime.ToString("N2");
+
+        finalScore = score + Mathf.FloorToInt(1000 / _runningTime);
+
+        CalculateStarRating();
     }
 
     public void GameOver()
@@ -64,5 +83,32 @@ public class GameManager : MonoBehaviour
     public void GoNextStage()
     {
 
+    public void UpdateScore(int scoreValue)
+    {
+        score += scoreValue;
+        scoreText.text = "Score: " + score;
+    }
+
+    private void CalculateStarRating()
+    {
+        if (finalScore > 300)
+        {
+            starRating = 3;
+        }
+        else if (finalScore > 200)
+        {
+            starRating = 2;
+        }
+        else if (finalScore > 100)
+        {
+            starRating = 1;
+        }
+        else
+        {
+            starRating = 0;
+        }
+
+        PlayerPrefs.SetInt(StringKey.STAR_RATING_PREFS, starRating);
+        PlayerPrefs.Save();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HardMeteor : Meteor
 {
-    public HardMeteor() : base("HM", 3)
+    public HardMeteor() : base("HM", 3, 30)
     {
     }
 }
