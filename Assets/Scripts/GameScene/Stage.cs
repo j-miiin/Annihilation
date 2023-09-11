@@ -80,13 +80,13 @@ public class Stage : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        if (isClear)
-        {
-            _gameOverText.text = STAGE_CLEAR;
-        } else
-        {
-            _gameOverText.text = STAGE_FAIL;
-        }
+        //if (isClear)
+        //{
+        //    _gameOverText.text = STAGE_CLEAR;
+        //} else
+        //{
+        //    _gameOverText.text = STAGE_FAIL;
+        //}
 
         SetStarImage();
 

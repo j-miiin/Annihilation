@@ -14,7 +14,7 @@ public class Meteor : MonoBehaviour
     private ParticleSystem particle;
     private BoxCollider2D boxCollider;
 
-    private Resources[] ChangeMeteors;
+    private Sprite[] ChangeMeteors;
 
 
 
@@ -23,21 +23,23 @@ public class Meteor : MonoBehaviour
         Name = name;
         Hardness = hardness;
 
-        ChangeMeteors = new Resources[]
-        {
-            Resources.Load<GameObject>("Meteors.EMeteor"),
-            Resources.Load<GameObject>("Meteors.NMeteor"),
-            Resources.Load<GameObject>("Meteors.HMeteor")
-        };
+        
     }
 
 	private void Awake()
     {
-		MeteorRenderer = GetComponent<GameObject>();
+		ChangeMeteors = new Sprite[]
+		{
+			Resources.Load<Sprite>("Image/MeteorImage/EasyMeteorBrick"),
+			Resources.Load<Sprite>("Image/MeteorImage/NormalMeteorBrick"),
+			Resources.Load<Sprite>("Image/MeteorImage/HardMeteorBrick")
+		};
+
+		spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
         particle = GetComponentInChildren<ParticleSystem>();
 
-		MeteorRenderer.prefabs = ChangeBricks[Hardness - 1];
+		spriteRenderer.sprite = ChangeMeteors[Hardness - 1];
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -52,7 +54,7 @@ public class Meteor : MonoBehaviour
             }
             else
             {
-				//MeteorRenderer.color = ChangeBricks[Hardness - 1];
+				spriteRenderer.sprite = ChangeMeteors[Hardness - 1];
 			}
 		}
     }
@@ -61,7 +63,7 @@ public class Meteor : MonoBehaviour
     {
         particle.Play();
 
-		//MeteorRenderer.enabled = false;
+		spriteRenderer.enabled = false;
         boxCollider.enabled = false;
         yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
         Destroy(gameObject);
