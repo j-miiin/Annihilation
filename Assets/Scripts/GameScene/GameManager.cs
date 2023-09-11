@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
         }
        
         _isOver = false;
+
+        starRating = PlayerPrefs.GetInt(StringKey.STAR_RATING_PREFS, 0);
     }
 
     void Update()
@@ -59,7 +61,7 @@ public class GameManager : MonoBehaviour
 
         finalScore = score + Mathf.FloorToInt(1000 / _runningTime);
 
-        CalculateStarRating(); // 별점 계산 메서드 호출
+        CalculateStarRating();
     }
 
     public void GameOver()
@@ -75,11 +77,11 @@ public class GameManager : MonoBehaviour
 
     private void CalculateStarRating()
     {
-        if (finalScore > 500)
+        if (finalScore > 300)
         {
             starRating = 3;
         }
-        else if (finalScore > 300)
+        else if (finalScore > 200)
         {
             starRating = 2;
         }
@@ -91,5 +93,8 @@ public class GameManager : MonoBehaviour
         {
             starRating = 0;
         }
+
+        PlayerPrefs.SetInt(StringKey.STAR_RATING_PREFS, starRating);
+        PlayerPrefs.Save();
     }
 }

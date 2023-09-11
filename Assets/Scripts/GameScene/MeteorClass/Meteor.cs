@@ -23,9 +23,7 @@ public class Meteor : MonoBehaviour
     {
         Name = name;
         Hardness = hardness;
-        Score = score;
-
-        
+        Score = score;   
     }
 
 	private void Awake()
