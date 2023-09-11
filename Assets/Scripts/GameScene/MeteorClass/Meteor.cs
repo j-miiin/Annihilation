@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
-    Item i = new Item();
     public string Name { get; }
     public int Hardness { get; set; }
     public int Score { get; set; }
@@ -17,13 +16,13 @@ public class Meteor : MonoBehaviour
 
     private Sprite[] ChangeMeteors;
 
-
-
+    GameObject item;
     public Meteor(string name, int hardness, int score)
     {
         Name = name;
         Hardness = hardness;
-        Score = score;   
+        Score = score;
+        
     }
 
 	private void Awake()
@@ -50,7 +49,7 @@ public class Meteor : MonoBehaviour
             if (Hardness <= 0)
             {
                 StartCoroutine(DestroyMeteor());
-                i.RandomItem();
+                ItemManager.instance.ItemGenerator(boxCollider.transform.position);
             }
             else
             {
@@ -63,11 +62,10 @@ public class Meteor : MonoBehaviour
     {
         particle.Play();
 
-		spriteRenderer.enabled = false;
-        boxCollider.enabled = false;
-
         GameManager.I.UpdateScore(Score);
 
+		spriteRenderer.enabled = false;
+        boxCollider.enabled = false;
         yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
         Destroy(gameObject);
     }

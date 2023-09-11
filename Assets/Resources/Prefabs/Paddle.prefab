@@ -28,12 +28,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3617453958717701564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 85.95971, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7909125132949014448
 SpriteRenderer:
@@ -171,6 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40053ff4a7bd3f24c867a80c8fc7d3bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddle: {fileID: 4469887951486600752}
+  item: {fileID: 3273797537115761539, guid: eabc71c53693483449e87e6fabd9b204, type: 3}
+  paddleRb: {fileID: 4469887951486600752}
+  ballRb: {fileID: 4657389426788176653, guid: c6b87a8f719868b4aa894c0a936d2dde, type: 3}
   Left: 97
   Right: 100
