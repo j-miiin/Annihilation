@@ -2,29 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
-    private GameObject _canvas;
-    private GameObject _gameOverText;
-    private GameObject _meteorController;
-
+    // 운석 블럭 grid 프리팹
     private string _meteorPrefabName;
+    // 배경 이미지
     private string _backgroundImage;
 
     private bool _isOver;   // 스테이지 실패 조건 달성 시 GameManager가 true로 바꿔주는 값
 
-    const string CANVAS = "Canvas";
-    const string GAMEOVER_TEXT = "GameOverText";
-
-    const string STAGE_CLEAR = "STAGE CLEAR";
-    const string STAGE_FAIL = "STAGE FAIL";
-
     void Start()
     {
         InitStage();
-        StartGame();
     }
 
     void Update()
@@ -45,19 +37,14 @@ public class Stage : MonoBehaviour
         Time.timeScale = 1f;
         _isOver = false;
 
-
         Instantiate(Resources.Load<GameObject>("Prefabs/Stages/" + _meteorPrefabName));
-
-        // TODO 백그라운드 이미지 위치, 이름 논의 후 이미지 불러오는 코드 다시 설정
-        _canvas = GameObject.Find(CANVAS);
-        //Image backgroundImage = _canvas.transform.Find("BackgroundImage").GetComponent<Image>();
-        //backgroundImage.sprite = Resources.Load<Sprite>("easystage_bg");
-        _gameOverText = _canvas.transform.Find(GAMEOVER_TEXT).gameObject;
     }
 
-    private void StartGame()
+    //모든 운석 파괴 여부 확인
+    private bool AllMeteorsDestroyed()
     {
-        // 마우스 클릭 시 공 움직이기 시작
+        GameObject[] meteors = GameObject.FindGameObjectsWithTag("Meteor");
+        return meteors.Length == 0;
     }
 
     // isClear == true 이면 스테이지 클리어, false 이면 실패
@@ -65,15 +52,7 @@ public class Stage : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        if (isClear)
-        {
-            _gameOverText.GetComponent<TMP_Text>().text = STAGE_CLEAR;
-        } else
-        {
-            _gameOverText.GetComponent<TMP_Text>().text = STAGE_FAIL;
-        }
-
-        _gameOverText.SetActive(true);
+        StageUIManager.S.SetStageEndPanel(isClear, 70);
     }
 
     // GameManager에서 호출하여 Stage 정보 설정
@@ -89,10 +68,18 @@ public class Stage : MonoBehaviour
         _isOver = true;
     }
 
-    //모든 운석 파괴 여부 확인
-    private bool AllMeteorsDestroyed()
+    public void GoHome()
     {
-        GameObject[] meteors = GameObject.FindGameObjectsWithTag("Meteor");
-        return meteors.Length == 0;
+
+    }
+
+    public void RetryGame()
+    {
+
+    }
+
+    public void GoNextStageBtn()
+    {
+
     }
 }
