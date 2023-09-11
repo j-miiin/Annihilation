@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Stage _stage;
     private int _curStage;
     private bool _isOver;
+
+    public int finalScore = 0;
+    public int score = 0;
+    public TMP_Text scoreText; // 점수를 표시할 UI Text
+
+    private float _runningTime = 0f;
+    public TMP_Text timeText;
 
     private void Awake()
     {
@@ -43,10 +51,21 @@ public class GameManager : MonoBehaviour
         {
             _stage.StageFail();
         }
+        
+        _runningTime += Time.deltaTime;
+        timeText.text = _runningTime.ToString("N2");
+
+        finalScore = score + Mathf.FloorToInt(_runningTime);
     }
 
     public void GameOver()
     {
         _isOver = true;
+    }
+
+    public void UpdateScore(int scoreValue)
+    {
+        score += scoreValue;
+        scoreText.text = "Score: " + score; // UI 텍스트 업데이트
     }
 }

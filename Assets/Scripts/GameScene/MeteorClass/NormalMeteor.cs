@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalMeteor : Meteor
 {
-    public NormalMeteor() : base("NM", 2)
+    public NormalMeteor() : base("NM", 2, 20)
     {
     }
 }

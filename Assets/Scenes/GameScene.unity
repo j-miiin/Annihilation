@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stage: {fileID: 934020621}
+  scoreText: {fileID: 0}
 --- !u!4 &343540374
 Transform:
   m_ObjectHideFlags: 0

@@ -67,7 +67,12 @@ public class Stage : MonoBehaviour
 
         if (isClear)
         {
-            _gameOverText.GetComponent<TMP_Text>().text = STAGE_CLEAR;
+            string clearText = STAGE_CLEAR;
+            if (GameManager.I != null)
+            {
+                clearText += " Score: " + GameManager.I.finalScore;
+            }
+            _gameOverText.GetComponent<TMP_Text>().text = clearText;
         } else
         {
             _gameOverText.GetComponent<TMP_Text>().text = STAGE_FAIL;

@@ -6,6 +6,7 @@ public class Meteor : MonoBehaviour
 {
     public string Name { get; }
     public int Hardness { get; set; }
+    public int Score { get; set; }
 
     private SpriteRenderer spriteRenderer;
     private ParticleSystem particle;
@@ -15,10 +16,11 @@ public class Meteor : MonoBehaviour
 
 
 
-    public Meteor(string name, int hardness)
+    public Meteor(string name, int hardness, int score)
     {
         Name = name;
         Hardness = hardness;
+        Score = score;
 
         hardnessColors = new Color[]
         {
@@ -59,6 +61,9 @@ public class Meteor : MonoBehaviour
 
         spriteRenderer.enabled = false;
         boxCollider.enabled = false;
+
+        GameManager.I.UpdateScore(Score);
+
         yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
         Destroy(gameObject);
     }
