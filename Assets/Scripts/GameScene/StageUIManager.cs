@@ -96,8 +96,8 @@ public class StageUIManager : MonoBehaviour
     // Stage End Panel의 Home, Retry, Next Stage 버튼에 Click Listener를 달아줌
     private void SetBtn()
     {
-        _homeBtn.onClick.AddListener(() => { _stage.GoHome(); } );
-        _retryBtn.onClick.AddListener(() => { _stage.RetryGame(); });
-        _nextStageBtn.onClick.AddListener(() => { _stage.GoNextStageBtn(); });
+        _homeBtn.onClick.AddListener(() => { GameManager.I.GoHome(); } );
+        _retryBtn.onClick.AddListener(() => { GameManager.I.RetryGame(); });
+        _nextStageBtn.onClick.AddListener(() => { GameManager.I.GoNextStage(); });
     }
 }

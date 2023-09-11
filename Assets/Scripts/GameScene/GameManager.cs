@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,11 +28,11 @@ public class GameManager : MonoBehaviour
         }
         else if (_curStage == 2)
         {
-            _stage.SetStageInfo("NormalStageGrid", "");
+            _stage.SetStageInfo("NewNormalStageGrid", "");
         }
         else if (_curStage == 3)
         {
-            _stage.SetStageInfo("HardStageGrid", "");
+            _stage.SetStageInfo("NewHardStageGrid", "");
         }
        
         _isOver = false;
@@ -48,5 +49,20 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         _isOver = true;
+    }
+
+    public void GoHome()
+    {
+        SceneManager.LoadScene("StageScene");
+    }
+
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void GoNextStage()
+    {
+
     }
 }

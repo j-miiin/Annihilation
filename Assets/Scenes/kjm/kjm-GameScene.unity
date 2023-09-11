@@ -1382,6 +1382,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageEndPanelImage
       objectReference: {fileID: 0}
+    - target: {fileID: 7498907278599743130, guid: 5809b4568c3b235408f4e47061616b73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8545287588813059264, guid: 5809b4568c3b235408f4e47061616b73, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

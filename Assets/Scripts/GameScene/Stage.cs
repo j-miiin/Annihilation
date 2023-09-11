@@ -21,7 +21,6 @@ public class Stage : MonoBehaviour
 
     void Update()
     {
-        // TODO MeteorController 완성 시 주석 풀기
         if (AllMeteorsDestroyed())
         {
             GameOver(true);
@@ -52,6 +51,11 @@ public class Stage : MonoBehaviour
     {
         Time.timeScale = 0f;
 
+        if (isClear)
+        {
+            PlayerPrefs.SetInt(StringKey.LOCKED_STAGE_PREFS, PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS) + 1);
+        }
+
         StageUIManager.S.SetStageEndPanel(isClear, 70);
     }
 
@@ -66,20 +70,5 @@ public class Stage : MonoBehaviour
     public void StageFail()
     {
         _isOver = true;
-    }
-
-    public void GoHome()
-    {
-
-    }
-
-    public void RetryGame()
-    {
-
-    }
-
-    public void GoNextStageBtn()
-    {
-
     }
 }
