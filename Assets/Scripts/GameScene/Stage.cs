@@ -18,8 +18,8 @@ public class Stage : MonoBehaviour
     const string CANVAS = "Canvas";
     const string GAMEOVER_TEXT = "GameOverText";
 
-    const string STAGE_CLEAR = "Stage Clear";
-    const string STAGE_FAIL = "Stage Fail";
+    const string STAGE_CLEAR = "STAGE CLEAR";
+    const string STAGE_FAIL = "STAGE FAIL";
 
     void Start()
     {
