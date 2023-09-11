@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 648317816556536896}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3927282239049035180
 SpriteRenderer:
@@ -1125,7 +1125,7 @@ ParticleSystem:
         serializedVersion: 2
         minMaxState: 3
         scalar: 4
-        minScalar: 1
+        minScalar: 0
         maxCurve:
           serializedVersion: 2
           m_Curve:
