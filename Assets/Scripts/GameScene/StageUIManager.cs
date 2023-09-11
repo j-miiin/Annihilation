@@ -6,24 +6,24 @@ using UnityEngine.UI;
 
 public class StageUIManager : MonoBehaviour
 {
-    //public Dictionary<string, GameObject> stageUIDic;
-    public GameObject GameOverPanel;
-    public GameObject ScoreAndTimePanel;
+    //public Dictionary<string, MonoBehaviour> stageUIDic;
+    public GameObject gameOverPanel;
+    public GameObject scoreAndTimePanel;
 
     public static StageUIManager Instance;
 
     private void Awake()
     {
         Instance = this;
-        //stageUIDic = new Dictionary<string, GameObject>();
+        //stageUIDic = new Dictionary<string, MonoBehaviour>();
     }
 
-    //public void AddUIComponent(GameObject uiComponent)
+    //public void AddUIComponent(MonoBehaviour uiComponent)
     //{
     //    stageUIDic.Add(uiComponent.name, uiComponent);
     //}
 
-    //public GameObject GetUIComponent(string name)
+    //public MonoBehaviour GetUIComponent(string name)
     //{
     //    return stageUIDic[name];
     //}

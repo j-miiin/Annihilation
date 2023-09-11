@@ -97,7 +97,7 @@ public class Ball : MonoBehaviour
         }
         else if (collision.collider.CompareTag("Bottom"))
         {
-            GameManager.I.GameOver();
+            GameManager.Instance.GameOver();
         }
     }
     /*

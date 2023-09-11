@@ -26,7 +26,6 @@ public class Stage : MonoBehaviour
     void Update()
     {
         UpdateTime();
-        UpdateScore();
 
         if (AllMeteorsDestroyed())
         {
@@ -49,12 +48,7 @@ public class Stage : MonoBehaviour
     private void UpdateTime()
     {
         _runningTime += Time.deltaTime;
-        StageUIManager.Instance.ScoreAndTimePanel.GetComponent<ScoreAndTimePanel>().SetTimeText(_runningTime.ToString("N2"));
-    }
-
-    private void UpdateScore()
-    {
-        
+        StageUIManager.Instance.scoreAndTimePanel.GetComponent<ScoreAndTimePanel>().SetTimeText(_runningTime.ToString("N2"));
     }
 
     // 모든 운석이 파괴되었는지 확인
@@ -73,11 +67,12 @@ public class Stage : MonoBehaviour
         if (isClear)
         {
             starRating = GetStageStarResult();
-            PlayerPrefs.SetInt(StringKey.STAR_RATING_PREFS, starRating);
-            PlayerPrefs.SetInt(StringKey.LOCKED_STAGE_PREFS, PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS) + 1);
+            //PlayerPrefs.SetInt(StringKey.STAR_RATING_PREFS, starRating);
+            //PlayerPrefs.SetInt(StringKey.LOCKED_STAGE_PREFS, PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS) + 1);
         }
 
-        StageUIManager.Instance.GameOverPanel.GetComponent<GameOverPanel>().SetStageEndPanel(isClear, _score, starRating);
+        GameManager.Instance.SaveData(starRating);
+        StageUIManager.Instance.gameOverPanel.GetComponent<GameOverPanel>().SetGameOverPanel(isClear, _score, starRating);
     }
 
     private int GetStageStarResult()
@@ -106,6 +101,8 @@ public class Stage : MonoBehaviour
     public void UpdateScore(int score)
     {
         _score += score;
-        StageUIManager.Instance.ScoreAndTimePanel.GetComponent<ScoreAndTimePanel>().SetScoreText(score);
+        StageUIManager.Instance.scoreAndTimePanel.GetComponent<ScoreAndTimePanel>().SetScoreText(_score);
+        //ScoreAndTimePanel scoreAndTimePanel = (ScoreAndTimePanel)StageUIManager.Instance.GetUIComponent("ScoreAndTimePanel");
+        //scoreAndTimePanel.SetScoreText(_score);
     }
 }
