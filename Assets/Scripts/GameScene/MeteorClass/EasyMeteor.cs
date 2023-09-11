@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EasyMeteor : Meteor
 {
-    public EasyMeteor() : base("EM", 1)
+    public EasyMeteor() : base("EM", 1, 10)
     {
     }
 }
