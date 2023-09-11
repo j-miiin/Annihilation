@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         _runningTime += Time.deltaTime;
         timeText.text = _runningTime.ToString("N2");
 
-        finalScore = score + Mathf.FloorToInt(_runningTime);
+        finalScore = score + Mathf.FloorToInt(1000/_runningTime);
     }
 
     public void GameOver()

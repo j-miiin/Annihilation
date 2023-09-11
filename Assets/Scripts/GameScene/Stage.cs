@@ -19,6 +19,7 @@ public class Stage : MonoBehaviour
     private Image _star2Image;
     private Image _star3Image;
 
+
     private bool _isOver;   // 스테이지 실패 조건 달성 시 GameManager가 true로 바꿔주는 값
 
     const string CANVAS = "Canvas";
@@ -82,7 +83,8 @@ public class Stage : MonoBehaviour
 
         if (isClear)
         {
-            _gameOverText.text = STAGE_CLEAR;
+            string clearText = STAGE_CLEAR + " Score: " + GameManager.I.finalScore;
+            _gameOverText.GetComponent<TMP_Text>().text = clearText;
         } else
         {
             _gameOverText.text = STAGE_FAIL;
@@ -98,10 +100,9 @@ public class Stage : MonoBehaviour
         Sprite filledStar = Resources.Load<Sprite>("Image/StarImage/filled_star_img");
         Sprite emptyStar = Resources.Load<Sprite>("Image/StarImage/empty_star_img");
 
-        int score = 70;
-        _star1Image.sprite = (score > 30) ? filledStar : emptyStar;
-        _star2Image.sprite = (score > 60) ? filledStar : emptyStar;
-        _star3Image.sprite = (score > 90) ? filledStar : emptyStar;
+        _star1Image.sprite = (GameManager.I.finalScore > 30) ? filledStar : emptyStar;
+        _star2Image.sprite = (GameManager.I.finalScore > 60) ? filledStar : emptyStar;
+        _star3Image.sprite = (GameManager.I.finalScore > 90) ? filledStar : emptyStar;
     }
 
     // GameManager에서 호출하여 Stage 정보 설정
