@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Paddle : MonoBehaviour
 {
-    public Rigidbody2D paddle;
+    public GameObject item;
+    public Rigidbody2D paddleRb;
+    public Rigidbody2D ballRb;
 
     private float _rotationX;
-    private float _speed = 3.0f;
+    private float _paddlespeed = 3.0f;
+    private float _ballspeed = 4.0f;
     
     public KeyCode Left;
     public KeyCode Right;
 
     void Start()
     {
-        paddle = GetComponent<Rigidbody2D>();
+        paddleRb = GetComponent<Rigidbody2D>();
+        ballRb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -23,17 +28,18 @@ public class Paddle : MonoBehaviour
         _rotationX = 0f;
         if (Input.GetKey(Left)) { _rotationX -= 1f; }
         if (Input.GetKey(Right)) { _rotationX += 1f; }
-        paddle.velocity = new Vector3(_rotationX * _speed, 0, 0);
+        paddleRb.velocity = new Vector3(_rotationX * _paddlespeed, 0, 0);
     }
  
-    private void OnCollisionEnter2D(Collision2D collision)      // 패들에 닿을때마다 무작위 각도 발사
+    private void OnTriggerEnter2D(Collider2D collision)      // 패들에 닿을때마다 무작위 각도 발사
     {
-        if (collision.collider.CompareTag("Item"))
+        if (collision.CompareTag("Item"))
         {
-            
+            // ItemManager.instance.GetItem();
         }
     }
  
+    
     /*
      * private void OnCollisionEnter2D(Collision2D collision)      // 한번 발사된 각도로 무한 고정됨
     {

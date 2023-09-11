@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
-    [SerializeField] private Item _item;
     public string Name { get; }
     public int Hardness { get; set; }
 
@@ -16,7 +15,7 @@ public class Meteor : MonoBehaviour
 
     private Sprite[] ChangeMeteors;
 
-
+    GameObject item;
     public Meteor(string name, int hardness)
     {
         Name = name;
@@ -49,7 +48,7 @@ public class Meteor : MonoBehaviour
             if (Hardness <= 0)
             {
                 StartCoroutine(DestroyMeteor());
-                _item.ItemGenerator(collision.transform.position);
+                ItemManager.instance.ItemGenerator(boxCollider.transform.position);
             }
             else
             {

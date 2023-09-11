@@ -7,7 +7,6 @@ using static UnityEditor.Progress;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private Item _item;
     const float C_RADIAN = 180f;
     public Rigidbody2D ball;
     public Rigidbody2D paddle;

@@ -12,8 +12,6 @@ public class Item : MonoBehaviour
     public Rigidbody2D ball;
     // private bool _isDrop = false;
 
-    private string[] _colors = { "red", "yellow", "green", "blue", "cyan" };
-
     void Start()
     {
         itemColor = GetComponent<SpriteRenderer>();
@@ -21,39 +19,33 @@ public class Item : MonoBehaviour
         ball = GetComponent<Rigidbody2D>();
         // _isDrop = true;
     }
-    public void ItemGenerator(Vector2 Meteor)
+    void Update()
     {
-        int x = Random.Range(0, 50); // 5대신 10 하면 20%에서 10%
-        if (x == 0)
+        
+    }
+    public void GetItem()
+    {
+        switch (item.name)
         {
-            int c = Random.Range(0, _colors.Length);
-            string currentName = "";
-            switch (c)
-            {
-                case 0:
-                    itemColor.color = Color.red;
-                    currentName = "Item_paddle_small";
-                    break;
-                case 1:
-                    itemColor.color = Color.yellow;
-                    currentName = "Item_ball_fast";
-                    break;
-                case 2:
-                    itemColor.color = Color.green;
-                    currentName = "Item_paddle_big";
-                    break;
-                case 3:
-                    itemColor.color = Color.blue;
-                    currentName = "Item_ball_fireball";
-                    break;
-                case 4:
-                    itemColor.color = Color.cyan;
-                    currentName = "Item_paddle_shoot";
-                    break;
-            }
-            GameObject Item = Instantiate(item, Meteor, Quaternion.identity);
-            Item.name = currentName;
-            Item.GetComponent<Rigidbody2D>().velocity = new Vector3(0f, -2f, 0f);
+            case "Item_paddle_small":
+                paddle.transform.localScale -= new Vector3(0.3f, 0.0f, 0.0f);
+                Debug.Log("Get Item_paddle_small");
+                break;
+            case "Item_ball_fast":
+                Vector2 dir = ball.velocity.normalized;
+                ball.AddForce(dir * 5.0f);
+                Debug.Log("Get Item_ball_fast");
+                break;
+            case "Item_paddle_big":
+                paddle.transform.localScale += new Vector3(0.3f, 0.0f, 0.0f);
+                Debug.Log("Get Item_paddle_big");
+                break;
+            case "Item_ball_fireball":
+                Debug.Log("Get Item_ball_fireball");
+                break;
+            case "Item_paddle_shoot":
+                Debug.Log("Get Item_paddle_shoot");
+                break;
         }
     }
 }
