@@ -10,11 +10,11 @@ public class Meteor : MonoBehaviour
     public string Name { get; }
     public int Hardness { get; set; }
 
-    private GameObject MeteorRenderer;
+    private SpriteRenderer spriteRenderer;
     private ParticleSystem particle;
     private BoxCollider2D boxCollider;
 
-    private GameObject[] ChangeBricks;
+    private Resources[] ChangeMeteors;
 
 
 
@@ -23,12 +23,12 @@ public class Meteor : MonoBehaviour
         Name = name;
         Hardness = hardness;
 
-        //ChangeBricks = new GameObject[]
-        //{
-        //    Resources.Load<GameObject>("Meteors.EMeteor"),
-        //    Resources.Load<GameObject>("Meteors.NMeteor"),
-        //    Resources.Load<GameObject>("Meteors.HMeteor")
-        //};
+        ChangeMeteors = new Resources[]
+        {
+            Resources.Load<GameObject>("Meteors.EMeteor"),
+            Resources.Load<GameObject>("Meteors.NMeteor"),
+            Resources.Load<GameObject>("Meteors.HMeteor")
+        };
     }
 
 	private void Awake()
@@ -37,7 +37,7 @@ public class Meteor : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         particle = GetComponentInChildren<ParticleSystem>();
 
-		//MeteorRenderer.prefabs = ChangeBricks[Hardness - 1];
+		MeteorRenderer.prefabs = ChangeBricks[Hardness - 1];
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
