@@ -5,8 +5,6 @@ using UnityEngine.UIElements;
 
 public class Paddle : MonoBehaviour
 {
-    Item i = new Item();
-
     public Rigidbody2D paddle;
 
     private float _rotationX;
@@ -32,7 +30,7 @@ public class Paddle : MonoBehaviour
     {
         if (collision.collider.CompareTag("Item"))
         {
-            i.GetItem();
+            
         }
     }
  

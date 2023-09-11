@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
-    Item i = new Item();
+    [SerializeField] private Item _item;
     public string Name { get; }
     public int Hardness { get; set; }
 
@@ -13,7 +13,6 @@ public class Meteor : MonoBehaviour
     private BoxCollider2D boxCollider;
 
     private Color[] hardnessColors;
-
 
 
     public Meteor(string name, int hardness)
@@ -46,7 +45,7 @@ public class Meteor : MonoBehaviour
             if (Hardness <= 0)
             {
                 StartCoroutine(DestroyMeteor());
-                i.RandomItem();
+                _item.ItemGenerator(collision.transform.position);
             }
             else
             {
