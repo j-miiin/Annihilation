@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Meteor : MonoBehaviour
@@ -7,11 +9,11 @@ public class Meteor : MonoBehaviour
     public string Name { get; }
     public int Hardness { get; set; }
 
-    private SpriteRenderer spriteRenderer;
+    private GameObject MeteorRenderer;
     private ParticleSystem particle;
     private BoxCollider2D boxCollider;
 
-    private Color[] hardnessColors;
+    private GameObject[] ChangeBricks;
 
 
 
@@ -20,24 +22,24 @@ public class Meteor : MonoBehaviour
         Name = name;
         Hardness = hardness;
 
-        hardnessColors = new Color[]
-        {
-            Color.white,
-            Color.gray,
-            Color.black
-        };
+        //ChangeBricks = new GameObject[]
+        //{
+        //    Resources.Load<GameObject>("Meteors.EMeteor"),
+        //    Resources.Load<GameObject>("Meteors.NMeteor"),
+        //    Resources.Load<GameObject>("Meteors.HMeteor")
+        //};
     }
 
-    private void Awake()
+	private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+		MeteorRenderer = GetComponent<GameObject>();
         boxCollider = GetComponent<BoxCollider2D>();
         particle = GetComponentInChildren<ParticleSystem>();
 
-        spriteRenderer.color = hardnessColors[Hardness - 1];
-    }
+		//MeteorRenderer.prefabs = ChangeBricks[Hardness - 1];
+	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+	private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
@@ -48,16 +50,16 @@ public class Meteor : MonoBehaviour
             }
             else
             {
-                spriteRenderer.color = hardnessColors[Hardness - 1];
-            }
-        }
+				//MeteorRenderer.color = ChangeBricks[Hardness - 1];
+			}
+		}
     }
 
     private IEnumerator DestroyMeteor()
     {
         particle.Play();
 
-        spriteRenderer.enabled = false;
+		//MeteorRenderer.enabled = false;
         boxCollider.enabled = false;
         yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
         Destroy(gameObject);
