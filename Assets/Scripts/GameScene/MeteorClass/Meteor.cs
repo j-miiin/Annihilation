@@ -20,7 +20,7 @@ public class Meteor : MonoBehaviour
     public Meteor(string name, int hardness, int score)
     {
         Name = name;
-        Hardness = hardness;
+        Hardness = hardness; 
         Score = score;
         
     }
