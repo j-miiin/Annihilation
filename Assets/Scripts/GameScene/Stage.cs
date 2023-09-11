@@ -16,7 +16,6 @@ public class Stage : MonoBehaviour
     private bool _isOver;   // 스테이지 실패 조건 달성 시 GameManager가 true로 바꿔주는 값
 
     const string CANVAS = "Canvas";
-    const string METEOR_CONTROLLER = "MeteorController";
     const string GAMEOVER_TEXT = "GameOverText";
 
     const string STAGE_CLEAR = "STAGE CLEAR";
@@ -31,10 +30,10 @@ public class Stage : MonoBehaviour
     void Update()
     {
         // TODO MeteorController 완성 시 주석 풀기
-        //if (_meteorController.transform.childCount == 0)
-        //{
-        //    GameOver(true);
-        //}
+        if (AllMeteorsDestroyed())
+        {
+            GameOver(true);
+        }
         if (_isOver)
         {
             GameOver(false);
@@ -46,17 +45,14 @@ public class Stage : MonoBehaviour
         Time.timeScale = 1f;
         _isOver = false;
 
-        // 운석 grid 생성
-        Instantiate(Resources.Load<GameObject>("Prefabs/Stages/"+_meteorPrefabName));
+
+        Instantiate(Resources.Load<GameObject>("Prefabs/Stages/" + _meteorPrefabName));
 
         // TODO 백그라운드 이미지 위치, 이름 논의 후 이미지 불러오는 코드 다시 설정
         _canvas = GameObject.Find(CANVAS);
         //Image backgroundImage = _canvas.transform.Find("BackgroundImage").GetComponent<Image>();
         //backgroundImage.sprite = Resources.Load<Sprite>("easystage_bg");
         _gameOverText = _canvas.transform.Find(GAMEOVER_TEXT).gameObject;
-
-        // TODO MeteorController 완성 시 주석 풀기
-        //_meteorController = GameObject.Find(METEOR_CONTROLLER);
     }
 
     private void StartGame()
@@ -91,5 +87,12 @@ public class Stage : MonoBehaviour
     public void StageFail()
     {
         _isOver = true;
+    }
+
+    //모든 운석 파괴 여부 확인
+    private bool AllMeteorsDestroyed()
+    {
+        GameObject[] meteors = GameObject.FindGameObjectsWithTag("Meteor");
+        return meteors.Length == 0;
     }
 }
