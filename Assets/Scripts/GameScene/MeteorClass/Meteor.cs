@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
+    Item i = new Item();
     public string Name { get; }
     public int Hardness { get; set; }
     public int Score { get; set; }
@@ -47,6 +48,7 @@ public class Meteor : MonoBehaviour
             if (Hardness <= 0)
             {
                 StartCoroutine(DestroyMeteor());
+                i.RandomItem();
             }
             else
             {

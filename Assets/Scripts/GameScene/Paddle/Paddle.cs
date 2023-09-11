@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class Paddle : MonoBehaviour
 {
+    Item i = new Item();
+
     public Rigidbody2D paddle;
 
     private float _rotationX;
@@ -28,7 +30,10 @@ public class Paddle : MonoBehaviour
  
     private void OnCollisionEnter2D(Collision2D collision)      // 패들에 닿을때마다 무작위 각도 발사
     {
-        // if (collision.tag == "Item")
+        if (collision.collider.CompareTag("Item"))
+        {
+            i.GetItem();
+        }
     }
  
     /*
