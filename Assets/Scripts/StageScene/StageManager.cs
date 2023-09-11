@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
@@ -14,9 +15,15 @@ public class StageManager : MonoBehaviour
 	[SerializeField] float fadeValue = 1f;
 	[SerializeField] float fadeTime = 1f;
 
-	
+    public TMP_Text starRatingText;
+
+    public Image star1Image;
+    public Image star2Image;
+    public Image star3Image;
+
+
     //StageManager를 GameManager로 가져감
-	private void Awake()
+    private void Awake()
     {
         SM = this;
         DontDestroyOnLoad(this);
@@ -42,13 +49,28 @@ public class StageManager : MonoBehaviour
 
     void Start()
     {
-        
+        int starRating = PlayerPrefs.GetInt("StarRating", 0);
+
+        if (starRatingText != null)
+        {
+            starRatingText.text = "Star Rating: " + starRating.ToString();
+        }
+
+        if (star1Image != null && star2Image != null && star3Image != null)
+        {
+            SetStarImage(starRating);
+        }
     }
 
-    
-    void Update()
+
+    public void SetStarImage(int starRating)
     {
-        
+        Sprite filledStar = Resources.Load<Sprite>("Image/StarImage/filled_star_img");
+        Sprite emptyStar = Resources.Load<Sprite>("Image/StarImage/empty_star_img");
+
+        star1Image.sprite = (starRating >= 1) ? filledStar : emptyStar;
+        star2Image.sprite = (starRating >= 2) ? filledStar : emptyStar;
+        star3Image.sprite = (starRating >= 3) ? filledStar : emptyStar;
     }
 
     public int GetStage()
@@ -59,5 +81,11 @@ public class StageManager : MonoBehaviour
     public void SetStage(int value)
     {
         SM.stageValue = value;
+    }
+
+    public void DeletePlayerInfo()
+    {
+        PlayerPrefs.DeleteKey("StarRating");
+
     }
 }

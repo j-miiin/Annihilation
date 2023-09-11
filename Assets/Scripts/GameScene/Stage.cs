@@ -52,7 +52,7 @@ public class Stage : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        StageUIManager.S.SetStageEndPanel(isClear, 70);
+        StageUIManager.S.SetStageEndPanel(isClear, GameManager.I.starRating);
     }
 
     // GameManager에서 호출하여 Stage 정보 설정

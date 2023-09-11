@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public class Ball : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Ball : MonoBehaviour
     public Rigidbody2D ball;
     public Rigidbody2D paddle;
 
-    private float _speed = 3.0f;
+    private float _speed = 4.0f;
     // private float[] _xAngles = { -3, -2, -1, 1, 2 , 3};
     // private float[] _yAngles = { 1, 2, 3 };
     private bool _isShoot = false;
