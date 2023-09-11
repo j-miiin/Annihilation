@@ -40,7 +40,7 @@ public class Item : MonoBehaviour
         int x = Random.Range(0, 5); // 5대신 10 하면 20%에서 10%
         if (x == 0)
         {
-            ItemGenerator(meteor.transform.position);
+            //ItemGenerator(meteor.transform.position);
         }
         else { }
     }
