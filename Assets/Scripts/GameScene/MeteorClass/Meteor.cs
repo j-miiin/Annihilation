@@ -8,6 +8,7 @@ public class Meteor : MonoBehaviour
 {
     public string Name { get; }
     public int Hardness { get; set; }
+    public int Score { get; set; }
 
     private SpriteRenderer spriteRenderer;
     private ParticleSystem particle;
@@ -16,11 +17,11 @@ public class Meteor : MonoBehaviour
     private Sprite[] ChangeMeteors;
 
     GameObject item;
-    public Meteor(string name, int hardness)
+    public Meteor(string name, int hardness, int score)
     {
         Name = name;
         Hardness = hardness;
-
+        Score = score;
         
     }
 
@@ -60,6 +61,8 @@ public class Meteor : MonoBehaviour
     private IEnumerator DestroyMeteor()
     {
         particle.Play();
+
+        GameManager.I.UpdateScore(Score);
 
 		spriteRenderer.enabled = false;
         boxCollider.enabled = false;
