@@ -7,12 +7,22 @@ using UnityEngine.UI;
 
 public class SwipeUI : MonoBehaviour
 {
+    // SwipeUI
+    // 스테이지 썸네일 이미지
+    public const string STAGE2_LOCKED_THUMB_IMAGE = "Test_Stage2_locked_Thumbnail";
+    public const string STAGE3_LOCKED_THUMB_IMAGE = "Test_Stage3_locked_Thumbnail";
+
     [SerializeField]
     private Scrollbar scrollBar;                // Scrollbar의 위치를 바탕으로 현재 페이지 체크
     [SerializeField]
     private float swipeTime = 0.2f;             // StageImage가 Swipe 되는 시간
     [SerializeField]
     private float swipeDistance = 30.0f;        // StageImage가 Swipe 되기 위해 움직여야하는 최소 거리
+
+    public TMP_Text StageLevelText;
+
+    [SerializeField] private Image stage2ThumbImage;
+    [SerializeField] private Image stage3ThumbImage;
 
     public float[] scrollPageValues;           // 각 페이지의 위치 값 [0.0 - 1.0]
     private float valueDistance = 0;            // 각 페이지 사이의 거리
@@ -21,7 +31,7 @@ public class SwipeUI : MonoBehaviour
     private float startTouchX;                  // 터치 시작 위치
     private float endTouchX;                    // 터치 종료 위치
     private bool isSwipeMode = false;           // 현재 Swipe가 되고 있는지 체크
-	public TMP_Text StageLevelText;
+    private int lockedStage;
 
 	enum StageText
 	{
@@ -29,10 +39,6 @@ public class SwipeUI : MonoBehaviour
 		NORMAL,
 		HARD
 	}
-
-
-
-
 
 	private void Awake()
 	{
@@ -50,19 +56,44 @@ public class SwipeUI : MonoBehaviour
 
         // 최대 페이지의 수
         maxPage = transform.childCount;
-
 	}
 
 	private void Start()
 	{
-        // 최초 시작할 때 Stage1 페이지를 볼 수 있도록 설정
-        SetScrollBarValue(0);
-	}
+        // 최초 시작할 때 마지막으로 해금한 스테이지의 다음 스테이지를 볼 수 있도록 설정
+        // 첫 시작이라면 1스테이지를 보게 설정
+        if (PlayerPrefs.HasKey(StringKey.LOCKED_STAGE_PREFS))
+        {
+            lockedStage = PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS);
+        } else
+        {
+            lockedStage = 1;
+            PlayerPrefs.SetInt(StringKey.LOCKED_STAGE_PREFS, lockedStage);
+        }
+        SetScrollBarValue(lockedStage - 1); 
+        SetStageThumbImage();
+    }
 
     public void SetScrollBarValue(int index)
     {
         currentPage = index;
+        if (index > scrollPageValues.Length) index = scrollPageValues.Length - 1;
         scrollBar.value = scrollPageValues[index];
+    }
+
+    // 해금한 스테이지 여부를 보여주기 위해 스테이지 Image를 set 
+    private void SetStageThumbImage()
+    {
+        if (lockedStage < 2)
+        {
+            stage2ThumbImage.GetComponent<Image>().sprite
+                = Resources.Load<Sprite>("Prefabs/Stage_Thumbnail/" + STAGE2_LOCKED_THUMB_IMAGE);
+        } 
+        if (lockedStage < 3)
+        {
+            stage3ThumbImage.GetComponent<Image>().sprite
+                = Resources.Load<Sprite>("Prefabs/Stage_Thumbnail/" + STAGE3_LOCKED_THUMB_IMAGE);
+        }
     }
 
 	private void Update()
@@ -182,6 +213,11 @@ public class SwipeUI : MonoBehaviour
             if (scrollBar.value < scrollPageValues[i] + (valueDistance / 2) && scrollBar.value > scrollPageValues[i] - (valueDistance / 2))
             {
                 StageLevelText.text = ((StageText)i).ToString(); //stageText[i];
+                if (i + 1 > lockedStage)
+                {
+                    StageLevelText.color = Color.grey;
+                }
+                else StageLevelText.color = Color.white;
             }
         }
     }
