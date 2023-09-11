@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
 
     public int finalScore = 0;
     public int score = 0;
-    public TMP_Text scoreText; // 점수를 표시할 UI Text
+    public TMP_Text scoreText;
+
+    public int starRating = 0;
 
     private float _runningTime = 0f;
     public TMP_Text timeText;
@@ -51,11 +53,13 @@ public class GameManager : MonoBehaviour
         {
             _stage.StageFail();
         }
-        
+
         _runningTime += Time.deltaTime;
         timeText.text = _runningTime.ToString("N2");
 
-        finalScore = score + Mathf.FloorToInt(1000/_runningTime);
+        finalScore = score + Mathf.FloorToInt(1000 / _runningTime);
+
+        CalculateStarRating(); // 별점 계산 메서드 호출
     }
 
     public void GameOver()
@@ -66,6 +70,26 @@ public class GameManager : MonoBehaviour
     public void UpdateScore(int scoreValue)
     {
         score += scoreValue;
-        scoreText.text = "Score: " + score; // UI 텍스트 업데이트
+        scoreText.text = "Score: " + score;
+    }
+
+    private void CalculateStarRating()
+    {
+        if (finalScore > 500)
+        {
+            starRating = 3;
+        }
+        else if (finalScore > 300)
+        {
+            starRating = 2;
+        }
+        else if (finalScore > 100)
+        {
+            starRating = 1;
+        }
+        else
+        {
+            starRating = 0;
+        }
     }
 }
