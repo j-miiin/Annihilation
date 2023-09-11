@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         if (_curStage == 1)
         {
             // TODO SetStageInfo 인자 값 설정
-            _stage.SetStageInfo("EasyStageGrid", "");
+            _stage.SetStageInfo("NewEasyStageGrid", "");
         }
         else if (_curStage == 2)
         {
