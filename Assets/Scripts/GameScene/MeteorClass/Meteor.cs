@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Meteor : MonoBehaviour
@@ -13,7 +15,7 @@ public class Meteor : MonoBehaviour
     private ParticleSystem particle;
     private BoxCollider2D boxCollider;
 
-    private Color[] hardnessColors;
+    private Sprite[] ChangeMeteors;
 
 
 
@@ -23,24 +25,26 @@ public class Meteor : MonoBehaviour
         Hardness = hardness;
         Score = score;
 
-        hardnessColors = new Color[]
-        {
-            Color.white,
-            Color.gray,
-            Color.black
-        };
+        
     }
 
-    private void Awake()
+	private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+		ChangeMeteors = new Sprite[]
+		{
+			Resources.Load<Sprite>("Image/MeteorImage/EasyMeteorBrick"),
+			Resources.Load<Sprite>("Image/MeteorImage/NormalMeteorBrick"),
+			Resources.Load<Sprite>("Image/MeteorImage/HardMeteorBrick")
+		};
+
+		spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
         particle = GetComponentInChildren<ParticleSystem>();
 
-        spriteRenderer.color = hardnessColors[Hardness - 1];
-    }
+		spriteRenderer.sprite = ChangeMeteors[Hardness - 1];
+	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+	private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
@@ -52,16 +56,16 @@ public class Meteor : MonoBehaviour
             }
             else
             {
-                spriteRenderer.color = hardnessColors[Hardness - 1];
-            }
-        }
+				spriteRenderer.sprite = ChangeMeteors[Hardness - 1];
+			}
+		}
     }
 
     private IEnumerator DestroyMeteor()
     {
         particle.Play();
 
-        spriteRenderer.enabled = false;
+		spriteRenderer.enabled = false;
         boxCollider.enabled = false;
 
         GameManager.I.UpdateScore(Score);
