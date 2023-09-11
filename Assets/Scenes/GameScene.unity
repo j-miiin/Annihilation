@@ -482,6 +482,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7498907278599743130, guid: 5809b4568c3b235408f4e47061616b73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8389722206006039940, guid: 5809b4568c3b235408f4e47061616b73, type: 3}
       propertyPath: m_Name
       value: StageEndPanelImage
@@ -497,7 +501,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 5809b4568c3b235408f4e47061616b73, type: 3}
 --- !u!224 &817981755 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3032375686742054161, guid: 5809b4568c3b235408f4e47061616b73, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8545287588813059264, guid: 5809b4568c3b235408f4e47061616b73, type: 3}
   m_PrefabInstance: {fileID: 817981754}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &832145340
@@ -1435,3 +1439,48 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1878140670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1878140672}
+  - component: {fileID: 1878140671}
+  m_Layer: 0
+  m_Name: StageUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1878140671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878140670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e190e69e82b77d419c8a0e3eee79e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stage: {fileID: 934020621}
+--- !u!4 &1878140672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878140670}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 319.00385, y: 329.51108, z: 3.1776578}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
