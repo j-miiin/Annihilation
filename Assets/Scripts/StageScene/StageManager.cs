@@ -23,19 +23,11 @@ public class StageManager : MonoBehaviour
     //StageManager�� GameManager�� ������
     private void Awake()
     {
-        if (SM == null)
-        {
-            var stageManager = new GameObject().AddComponent<StageManager>();
-            stageManager.transform.position = new Vector3(0, 0, 0);
-            SM = gameObject.GetComponent<StageManager>();
-        } else if (SM != this)
-        {
-            Destroy(gameObject);
-        }
+        SM = this;
         DontDestroyOnLoad(gameObject);
     }
 
-    //�������� �̹����� ������ �� �������� ���� �ؽ�Ʈ�� ���� �������� ������ �ο� �� GameScene �ε�
+    // 게임 시작 시 유저가 선택한 UI에 따라 각각 다른 stage value를 설정 후 해금된 스테이지라면 게임씬 로드
     public void gameStart(SwipeUI swipeUI)
     {
         if (swipeUI.StageLevelText.text == "EASY")
@@ -50,7 +42,7 @@ public class StageManager : MonoBehaviour
 		{
 			stageValue = 3;
 		}
-        if (stageValue <= PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS)) SceneManager.LoadScene("GameScene");
+        if (stageValue <= PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS)) SceneManager.LoadScene("kjm-GameScene");
     }
 
     void Start()

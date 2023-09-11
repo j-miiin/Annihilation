@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 511a89548158bfa4090bdb2ceddcc07d
+  - enabled: 1
+    path: Assets/Scenes/kjm/kjm-GameScene.unity
+    guid: 2600ac62943c9b044bc39169d8131376
   m_configObjects: {}

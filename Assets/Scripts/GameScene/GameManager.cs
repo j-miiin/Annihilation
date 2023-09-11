@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // StageManager���� stage ���� �������� �κ�
+        // StageManager에서 stage 정보를 받아옴
         //_curStage = StageManager.SM.GetStage();
         _curStage = 1;
         if (_curStage == 1)
         {
-            // TODO SetStageInfo ���� �� ����
+            // TODO 스테이지 배경 이미지 정보 세팅
             _stage.SetStageInfo("NewEasyStageGrid", "");
         }
         else if (_curStage == 2)
@@ -57,12 +57,13 @@ public class GameManager : MonoBehaviour
             _stage.StageFail();
         }
 
-        _runningTime += Time.deltaTime;
-        timeText.text = _runningTime.ToString("N2");
+        //_runningTime += Time.deltaTime;
+        //StageUIManager.Instance.ScoreAndTimePanel.GetComponent<ScoreAndTimePanel>().SetTimeText(_runningTime.ToString("N2"));
+        //timeText.text = _runningTime.ToString("N2");
+        
+        //finalScore = score + Mathf.FloorToInt(1000 / _runningTime);
 
-        finalScore = score + Mathf.FloorToInt(1000 / _runningTime);
-
-        CalculateStarRating();
+        //CalculateStarRating();
     }
 
     public void GameOver()
@@ -83,11 +84,19 @@ public class GameManager : MonoBehaviour
     public void GoNextStage()
     {
 
-    public void UpdateScore(int scoreValue)
-    {
-        score += scoreValue;
-        scoreText.text = "Score: " + score;
     }
+
+    public void UpdateScore(int score)
+    {
+        _stage.UpdateScore(score);
+    }
+
+    //public void UpdateScore(int scoreValue)
+    //{
+    //    score += scoreValue;
+    //    StageUIManager.Instance.ScoreAndTimePanel.GetComponent<ScoreAndTimePanel>().SetScoreText(score);
+    //    //scoreText.text = "Score: " + score;
+    //}
 
     private void CalculateStarRating()
     {
