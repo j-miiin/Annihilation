@@ -11,7 +11,7 @@ public class Paddle : MonoBehaviour
     public Rigidbody2D ballRb;
 
     private float _rotationX;
-    private float _paddlespeed = 3.0f;
+    private float _paddlespeed = 5.0f;
     private float _ballspeed = 4.0f;
     
     public KeyCode Left;
