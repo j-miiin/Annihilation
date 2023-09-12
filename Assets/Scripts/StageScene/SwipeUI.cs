@@ -20,16 +20,7 @@ public class SwipeUI : MonoBehaviour
 
     [SerializeField] private GameObject _stage1ThumbImage;
     [SerializeField] private GameObject _stage2ThumbImage;
-    [SerializeField] private GameObject _stage3ThumbImage;
-
-    [SerializeField] private GameObject _star1EmptyImage;
-    [SerializeField] private GameObject _star2EmptyImage;
-    [SerializeField] private GameObject _star3EmptyImage;
-    [SerializeField] private GameObject _star1FilledImage;
-    [SerializeField] private GameObject _star2FilledImage;
-    [SerializeField] private GameObject _star3FilledImage;
-
-    [SerializeField] private TMP_Text _stageLevelText;
+    [SerializeField] private GameObject _stage3ThumbImage;    
 
     public float[] scrollPageValues;           // 각 페이지의 위치 값 [0.0 - 1.0]
     private float valueDistance = 0;            // 각 페이지 사이의 거리
@@ -69,8 +60,7 @@ public class SwipeUI : MonoBehaviour
 
 	private void Start()
 	{
-        // 최초 시작할 때 마지막으로 해금한 스테이지의 다음 스테이지를 볼 수 있도록 설정
-        // 첫 시작이라면 1스테이지를 보게 설정
+        // 최초 시작할 때 마지막으로 해금한 스테이지를 볼 수 있도록 설정
         lockedStage = StageManager.Instance.GetLockedStage();
 
         SetScrollBarValue(lockedStage - 1); 
@@ -95,7 +85,7 @@ public class SwipeUI : MonoBehaviour
     private void SetScrollBarValue(int index)
     {
         currentPage = index;
-        if (index > scrollPageValues.Length) index = scrollPageValues.Length - 1;
+        if (index >= maxPage) index = maxPage - 1;
         scrollBar.value = scrollPageValues[index];
     }
 
@@ -177,7 +167,7 @@ public class SwipeUI : MonoBehaviour
             if (currentPage == 0) return;
 
             // 왼쪽으로 이동을 위해 현재 페이지를 1 감소
-            currentPage --;
+            currentPage--;
         }
         // 이동 방향이 오른쪽일 때
         else
@@ -186,7 +176,7 @@ public class SwipeUI : MonoBehaviour
             if (currentPage == maxPage - 1) return;
 
             // 오른쪽으로 이동을 위해 현재 페이지를 1 증가
-            currentPage ++;
+            currentPage++;
         }
 
         // currentIndex번째 페이지로 Swipe해서 이동
@@ -222,22 +212,11 @@ public class SwipeUI : MonoBehaviour
             //페이지의 절반을 넘어가면 현재 텍스트를 바꾸도록
             if (scrollBar.value < scrollPageValues[i] + (valueDistance / 2) && scrollBar.value > scrollPageValues[i] - (valueDistance / 2))
             {
-                _stageLevelText.text = ((StageText)i).ToString(); //stageText[i];
-                if (i + 1 > lockedStage)
-                {
-                    _stageLevelText.color = Color.grey;
-                    _star1FilledImage.SetActive(false);
-                    _star2FilledImage.SetActive(false);
-                    _star3FilledImage.SetActive(false);
-                }
-                else
-                {
-                    _stageLevelText.color = Color.white;
-                    int star = StageManager.Instance.GetEasyStar();
-                    _star1FilledImage.SetActive((star >= 1));
-                    _star2FilledImage.SetActive((star >= 2));
-                    _star3FilledImage.SetActive((star >= 3));
-                }
+                int star = StageManager.Instance.GetStarNum(i + 1);
+                UISwipeStageThumbnail.Instance.SetStageStarImage(star);
+
+                bool isLocked = (i + 1) > lockedStage;
+                UISwipeStageThumbnail.Instance.SetStageLevelText(((StageText)i).ToString(), isLocked);
             }
         }
     }

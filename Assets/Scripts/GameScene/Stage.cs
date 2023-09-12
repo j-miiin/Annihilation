@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
-    private GameOverPanel _gameOverPanel;
-    private ScoreAndTimePanel _scoreAndTimePanel;
+    private UIGameOverPanel _gameOverPanel;
+    private UIScoreAndTimePanel _scoreAndTimePanel;
 
     // 생성할 운석 grid prefab
     private string _meteorPrefabName;
@@ -51,8 +51,8 @@ public class Stage : MonoBehaviour
 
     private void InitUIComponent()
     {
-        _gameOverPanel = StageUIManager.Instance.GetUIComponent<GameOverPanel>();
-        _scoreAndTimePanel = StageUIManager.Instance.GetUIComponent<ScoreAndTimePanel>();
+        _gameOverPanel = GameUIManager.Instance.GetUIComponent<UIGameOverPanel>();
+        _scoreAndTimePanel = GameUIManager.Instance.GetUIComponent<UIScoreAndTimePanel>();
     }
 
     private void UpdateTime()
@@ -76,12 +76,10 @@ public class Stage : MonoBehaviour
         int starRating = 0;
         if (isClear)
         {
-            starRating = GetStageStarResult();
-            //PlayerPrefs.SetInt(StringKey.STAR_RATING_PREFS, starRating);
-            //PlayerPrefs.SetInt(StringKey.LOCKED_STAGE_PREFS, PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS) + 1);
-        }
-
-        GameManager.Instance.SaveData(starRating);
+            starRating = GetStageStarResult();  // 스테이지를 클리어했다면 별점을 계산
+            GameManager.Instance.SaveData(starRating);
+            GameManager.Instance.UpdateLockedStage();
+        } 
         _gameOverPanel.SetGameOverPanel(isClear, _score, starRating);
     }
 

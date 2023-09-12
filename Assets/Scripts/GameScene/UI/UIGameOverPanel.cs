@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverPanel : MonoBehaviour
+public class UIGameOverPanel : MonoBehaviour
 {
     const string STAGE_CLEAR = "STAGE CLEAR";
     const string STAGE_FAIL = "STAGE FAIL";
@@ -24,7 +24,6 @@ public class GameOverPanel : MonoBehaviour
     private void Awake()
     {
         SetBtn();
-        StageUIManager.Instance.AddUIComponent(this);
     }
 
     public void SetBtn()
@@ -43,6 +42,7 @@ public class GameOverPanel : MonoBehaviour
         _scoreText.text = "SCORE " + (isClear ? score : 0);
 
         SetStarImage(starRating);
+        SetNextStageBtnActive(isClear);
 
         gameObject.SetActive(true);
     }
@@ -55,7 +55,8 @@ public class GameOverPanel : MonoBehaviour
         _star3FilledImage.SetActive((starRating >= 3));
     }
 
-    public void SetNextStageBtnActive(bool isActive)
+    // 스테이지 클리어 여부에 따라 다음 스테이지 버튼 활성/비활성화
+    private void SetNextStageBtnActive(bool isActive)
     {
         _nextStageBtn.interactable = isActive;
     }

@@ -13,16 +13,18 @@ public class StageManager : MonoBehaviour
 	[SerializeField] float fadeValue = 1f;
 	[SerializeField] float fadeTime = 1f;
 
-    public TMP_Text starRatingText;
-    public Image star1Image;
-    public Image star2Image;
-    public Image star3Image;
+    private UISwipeStageThumbnail _uiSwipeStageThumbnail;
 
     public static StageManager Instance;
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        _uiSwipeStageThumbnail = StageUIManager.Instance.GetUIComponent<UISwipeStageThumbnail>();
     }
 
     // 게임 시작 시 유저가 선택한 UI에 따라 각각 다른 stage value를 설정 후 해금된 스테이지라면 게임씬 로드
@@ -37,9 +39,11 @@ public class StageManager : MonoBehaviour
         return _dataManager.lockedStage;
     }
 
-    public int GetEasyStar()
+    public int GetStarNum(int stage)
     {
-        return _dataManager.easyStar;
+        if (stage == 1) return _dataManager.easyStar;
+        else if (stage == 2) return _dataManager.normalStar;
+        else return _dataManager.hardStar;
     }
 
     public void DeletePlayerInfo()

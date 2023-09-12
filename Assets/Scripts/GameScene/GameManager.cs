@@ -59,11 +59,22 @@ public class GameManager : MonoBehaviour
 
     public void SaveData(int starRating)
     {
-        if (_curStage == 2)
+        if (_curStage == 1)
         {
             _dataManager.easyStar = starRating;
         }
-        _dataManager.lockedStage = _curStage;
+        if (_curStage == 2)
+        {
+            _dataManager.normalStar = starRating;
+        } else
+        {
+            _dataManager.hardStar = starRating;
+        }
+    }
+
+    public void UpdateLockedStage()
+    {
+        if (_dataManager.lockedStage < 3) _dataManager.lockedStage = _curStage + 1;
     }
 
     public void GoHome()

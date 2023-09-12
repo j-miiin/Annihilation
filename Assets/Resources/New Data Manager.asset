@@ -15,3 +15,5 @@ MonoBehaviour:
   curStage: 1
   lockedStage: 1
   easyStar: 0
+  normalStar: 0
+  hardStar: 0
