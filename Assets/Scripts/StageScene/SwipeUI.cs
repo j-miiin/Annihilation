@@ -7,10 +7,9 @@ using UnityEngine.UI;
 
 public class SwipeUI : MonoBehaviour
 {
-    // SwipeUI
-    // 스테이지 썸네일 이미지
-    public const string STAGE2_LOCKED_THUMB_IMAGE = "Test_Stage2_locked_Thumbnail";
-    public const string STAGE3_LOCKED_THUMB_IMAGE = "Test_Stage3_locked_Thumbnail";
+    // 잠긴 스테이지 썸네일 이미지
+    public const string STAGE2_LOCKED_THUMB_IMAGE = "Image/MapImage/NStageMap_locked";
+    public const string STAGE3_LOCKED_THUMB_IMAGE = "Image/MapImage/HStageMap_locked";
 
     [SerializeField]
     private Scrollbar scrollBar;                // Scrollbar의 위치를 바탕으로 현재 페이지 체크
@@ -19,10 +18,9 @@ public class SwipeUI : MonoBehaviour
     [SerializeField]
     private float swipeDistance = 30.0f;        // StageImage가 Swipe 되기 위해 움직여야하는 최소 거리
 
-    public TMP_Text StageLevelText;
-
-    [SerializeField] private Image stage2ThumbImage;
-    [SerializeField] private Image stage3ThumbImage;
+    [SerializeField] private GameObject _stage1ThumbImage;
+    [SerializeField] private GameObject _stage2ThumbImage;
+    [SerializeField] private GameObject _stage3ThumbImage;    
 
     public float[] scrollPageValues;           // 각 페이지의 위치 값 [0.0 - 1.0]
     private float valueDistance = 0;            // 각 페이지 사이의 거리
@@ -56,44 +54,17 @@ public class SwipeUI : MonoBehaviour
 
         // 최대 페이지의 수
         maxPage = transform.childCount;
-	}
+
+        SetBtn();
+    }
 
 	private void Start()
 	{
-        // 최초 시작할 때 마지막으로 해금한 스테이지의 다음 스테이지를 볼 수 있도록 설정
-        // 첫 시작이라면 1스테이지를 보게 설정
-        if (PlayerPrefs.HasKey(StringKey.LOCKED_STAGE_PREFS))
-        {
-            lockedStage = PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS);
-        } else
-        {
-            lockedStage = 1;
-            PlayerPrefs.SetInt(StringKey.LOCKED_STAGE_PREFS, lockedStage);
-        }
+        // 최초 시작할 때 마지막으로 해금한 스테이지를 볼 수 있도록 설정
+        lockedStage = StageManager.Instance.GetLockedStage();
+
         SetScrollBarValue(lockedStage - 1); 
         SetStageThumbImage();
-    }
-
-    public void SetScrollBarValue(int index)
-    {
-        currentPage = index;
-        if (index > scrollPageValues.Length) index = scrollPageValues.Length - 1;
-        scrollBar.value = scrollPageValues[index];
-    }
-
-    // 해금한 스테이지 여부를 보여주기 위해 스테이지 Image를 set 
-    private void SetStageThumbImage()
-    {
-        if (lockedStage < 2)
-        {
-            stage2ThumbImage.GetComponent<Image>().sprite
-                = Resources.Load<Sprite>("Prefabs/Stage_Thumbnail/" + STAGE2_LOCKED_THUMB_IMAGE);
-        } 
-        if (lockedStage < 3)
-        {
-            stage3ThumbImage.GetComponent<Image>().sprite
-                = Resources.Load<Sprite>("Prefabs/Stage_Thumbnail/" + STAGE3_LOCKED_THUMB_IMAGE);
-        }
     }
 
 	private void Update()
@@ -103,6 +74,35 @@ public class SwipeUI : MonoBehaviour
         // 아래에 배치된 스테이지 레벨 텍스트 제어
         UpdateStageLevelText();
 	}
+
+    private void SetBtn()
+    {
+        _stage1ThumbImage.GetComponent<Button>().onClick.AddListener(() => StartGame()); 
+        _stage2ThumbImage.GetComponent<Button>().onClick.AddListener(() => StartGame());
+        _stage3ThumbImage.GetComponent<Button>().onClick.AddListener(() => StartGame());
+    }
+
+    private void SetScrollBarValue(int index)
+    {
+        currentPage = index;
+        if (index >= maxPage) index = maxPage - 1;
+        scrollBar.value = scrollPageValues[index];
+    }
+
+    // 해금한 스테이지 여부를 보여주기 위해 스테이지 Image를 set 
+    private void SetStageThumbImage()
+    {
+        if (lockedStage < 2)
+        {
+            _stage2ThumbImage.GetComponent<Image>().sprite
+                = Resources.Load<Sprite>(STAGE2_LOCKED_THUMB_IMAGE);
+        }
+        if (lockedStage < 3)
+        {
+            _stage3ThumbImage.GetComponent<Image>().sprite
+                = Resources.Load<Sprite>(STAGE3_LOCKED_THUMB_IMAGE);
+        }
+    }
 
     private void UpdateInput()
     {
@@ -167,7 +167,7 @@ public class SwipeUI : MonoBehaviour
             if (currentPage == 0) return;
 
             // 왼쪽으로 이동을 위해 현재 페이지를 1 감소
-            currentPage --;
+            currentPage--;
         }
         // 이동 방향이 오른쪽일 때
         else
@@ -176,7 +176,7 @@ public class SwipeUI : MonoBehaviour
             if (currentPage == maxPage - 1) return;
 
             // 오른쪽으로 이동을 위해 현재 페이지를 1 증가
-            currentPage ++;
+            currentPage++;
         }
 
         // currentIndex번째 페이지로 Swipe해서 이동
@@ -212,24 +212,17 @@ public class SwipeUI : MonoBehaviour
             //페이지의 절반을 넘어가면 현재 텍스트를 바꾸도록
             if (scrollBar.value < scrollPageValues[i] + (valueDistance / 2) && scrollBar.value > scrollPageValues[i] - (valueDistance / 2))
             {
-                StageLevelText.text = ((StageText)i).ToString(); //stageText[i];
-                if (i + 1 > lockedStage)
-                {
-                    StageLevelText.color = Color.grey;
-                }
-                else StageLevelText.color = Color.white;
+                int star = StageManager.Instance.GetStarNum(i + 1);
+                UISwipeStageThumbnail.Instance.SetStageStarImage(star);
+
+                bool isLocked = (i + 1) > lockedStage;
+                UISwipeStageThumbnail.Instance.SetStageLevelText(((StageText)i).ToString(), isLocked);
             }
         }
     }
 
-
-
-
-
-
-
-
-
-
-
+    public void StartGame()
+    {
+        StageManager.Instance.StartGame(currentPage + 1);
+    }
 }

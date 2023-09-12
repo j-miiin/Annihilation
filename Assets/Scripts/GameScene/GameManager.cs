@@ -1,52 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager I;
+    public static GameManager Instance;
+    public DataManager _dataManager;
 
     [SerializeField] private Stage _stage;
     private int _curStage;
     private bool _isOver;
 
-    public int finalScore = 0;
-    public int score = 0;
-    public TMP_Text scoreText;
-
-    public int starRating = 0;
-
-    private float _runningTime = 0f;
-    public TMP_Text timeText;
-
     private void Awake()
     {
-        I = this;
+        Instance = this;
     }
 
     void Start()
     {
-        // StageManager¿¡¼­ stage Á¤º¸ °¡Á®¿À´Â ºÎºÐ
-        //_curStage = StageManager.SM.GetStage();
-        _curStage = 1;
+        // DataManagerì—ì„œ í˜„ìž¬ ì„ íƒëœ ìŠ¤í…Œì´ì§€ ì •ë³´ë¥¼ ë°›ì•„ì˜´
+        _curStage = _dataManager.curStage;
         if (_curStage == 1)
         {
-            // TODO SetStageInfo ÀÎÀÚ °ª ¼³Á¤
+            // TODO ìŠ¤í…Œì´ì§€ ë°°ê²½ ì´ë¯¸ì§€ ì •ë³´ ì„¸íŒ…
             _stage.SetStageInfo("NewEasyStageGrid", "");
         }
         else if (_curStage == 2)
         {
-            _stage.SetStageInfo("NormalStageGrid", "");
+            _stage.SetStageInfo("NewNormalStageGrid", "");
         }
         else if (_curStage == 3)
         {
-            _stage.SetStageInfo("HardStageGrid", "");
+            _stage.SetStageInfo("NewHardStageGrid", "");
         }
        
         _isOver = false;
-
-        starRating = PlayerPrefs.GetInt(StringKey.STAR_RATING_PREFS, 0);
     }
 
     void Update()
@@ -55,13 +45,6 @@ public class GameManager : MonoBehaviour
         {
             _stage.StageFail();
         }
-
-        _runningTime += Time.deltaTime;
-        timeText.text = _runningTime.ToString("N2");
-
-        finalScore = score + Mathf.FloorToInt(1000 / _runningTime);
-
-        CalculateStarRating();
     }
 
     public void GameOver()
@@ -69,32 +52,45 @@ public class GameManager : MonoBehaviour
         _isOver = true;
     }
 
-    public void UpdateScore(int scoreValue)
+     public void UpdateScore(int score)
     {
-        score += scoreValue;
-        scoreText.text = "Score: " + score;
+        _stage.UpdateScore(score);
     }
 
-    private void CalculateStarRating()
+    public void SaveData(int starRating)
     {
-        if (finalScore > 300)
+        if (_curStage == 1)
         {
-            starRating = 3;
+            _dataManager.easyStar = starRating;
         }
-        else if (finalScore > 200)
+        if (_curStage == 2)
         {
-            starRating = 2;
-        }
-        else if (finalScore > 100)
+            _dataManager.normalStar = starRating;
+        } else
         {
-            starRating = 1;
+            _dataManager.hardStar = starRating;
         }
-        else
-        {
-            starRating = 0;
-        }
+    }
 
-        PlayerPrefs.SetInt(StringKey.STAR_RATING_PREFS, starRating);
-        PlayerPrefs.Save();
+    public void UpdateLockedStage()
+    {
+        if (_dataManager.lockedStage < 3) _dataManager.lockedStage = _curStage + 1;
+    }
+
+    public void GoHome()
+    {
+        SceneManager.LoadScene("StageScene");
+    }
+
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void GoNextStage()
+    {
+        if (_dataManager.curStage != 3) _dataManager.curStage += 1;
+        //else SceneManager.LoadScene("EndingScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
