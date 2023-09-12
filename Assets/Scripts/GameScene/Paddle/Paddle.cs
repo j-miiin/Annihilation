@@ -25,7 +25,7 @@ public class Paddle : MonoBehaviour
     private bool _isShoot = false;
     private float _rotationX;
     private float _paddlespeed = 5.0f;
-    private Sprite[] _changePaddle;
+    private Sprite[] _changePaddleAndBall;
 
     public float baseBallSpeed = 250;
     public float ballSpeed;
@@ -36,11 +36,12 @@ public class Paddle : MonoBehaviour
 
     void Start()
     {
-        _changePaddle = new Sprite[]
+        _changePaddleAndBall = new Sprite[]
         {
             Resources.Load<Sprite>("Image/PaddleImage/PaddleBig"),
             Resources.Load<Sprite>("Image/PaddleImage/PaddleNormal"),
-            Resources.Load<Sprite>("Image/PaddleImage/PaddleSmall")
+            Resources.Load<Sprite>("Image/PaddleImage/PaddleSmall"),
+            Resources.Load<Sprite>("Image/PaddleImage/Ball")
         };
 
         _paddleRb = paddle.GetComponent<Rigidbody2D>();
@@ -121,15 +122,20 @@ public class Paddle : MonoBehaviour
                 StartCoroutine("Item_paddle_big", false);
                 Debug.Log("Get Item_paddle_big");
                 break;
+            case "Item_ball_strongball":    // 10초동안 한번에 3겹씩 부수는 공 (모든 벽돌 한방)
+                StopCoroutine("Item_ball_strongball");
+                StartCoroutine("Item_ball_strongball", false);
+                Debug.Log("Item_ball_strongball");
+                break;
+            case "Item_paddle_shoot":       // 4.5초동안 총알이 중앙에서 자동으로 1발씩 15번 발사 (모든 벽돌 한방)
+                StopCoroutine("Item_paddle_shoot");
+                StartCoroutine("Item_paddle_shoot", false);
+                Debug.Log("Get Item_paddle_shoot");
+                break;
             case "Item_add_life":
                 StopCoroutine("Item_add_life");
                 StartCoroutine("Item_add_life", false);
                 Debug.Log("Get Item_add_life");
-                break;
-            case "Item_paddle_shoot":       // 4.5초동안 총알이 중앙에서 자동으로 1발씩 15번 발사
-                StopCoroutine("Item_paddle_shoot");
-                StartCoroutine("Item_paddle_shoot", false);
-                Debug.Log("Get Item_paddle_shoot");
                 break;
         }
     }
@@ -141,13 +147,13 @@ public class Paddle : MonoBehaviour
             {
                 _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
                 _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
-                _paddleSr.sprite = _changePaddle[1];
+                _paddleSr.sprite = _changePaddleAndBall[1];
             }
             else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // 중간 크기 상태일 때
             {
                 _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
                 _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
-                _paddleSr.sprite = _changePaddle[0];
+                _paddleSr.sprite = _changePaddleAndBall[0];
             }
             else { }    // 이미 커진 상태일 때 아무것도 안함 (스코어 올릴순 있음)
             yield return new WaitForSeconds(1);
@@ -159,13 +165,13 @@ public class Paddle : MonoBehaviour
         {
             _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
             _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
-            _paddleSr.sprite = _changePaddle[1];
+            _paddleSr.sprite = _changePaddleAndBall[1];
         }
         else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // 중간 크기 상태일 때
         {
             _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
             _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
-            _paddleSr.sprite = _changePaddle[2];
+            _paddleSr.sprite = _changePaddleAndBall[2];
         }
         else { }    // 이미 작은 상태일 때 아무것도 안함 (스코어 올릴순 있음)
         yield return new WaitForSeconds(1);
@@ -178,6 +184,30 @@ public class Paddle : MonoBehaviour
             yield return new WaitForSeconds(15);
         }
         ballSpeed = baseBallSpeed;
+    }
+    IEnumerator Item_ball_strongball(bool skip)
+    {
+        if (!skip)
+        {
+            _ballSr.color = Color.blue;
+            _ballCc.tag = "Strongball";
+            yield return new WaitForSeconds(10);
+        }
+        _ballSr.color = Color.white;
+        _ballCc.tag = "Ball";
+    }
+    IEnumerator Item_paddle_shoot(bool skip)
+    {
+        if (!skip)
+        {
+            for (int i = 0; i < 15; i++)
+            {
+                GameObject Bullet = Instantiate(bullet, _paddleRb.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+                Bullet.GetComponent<Rigidbody2D>().velocity = new Vector3(0f, 6f, 0f);
+                Destroy(Bullet, 5);
+                yield return new WaitForSeconds(0.3f);
+            }
+        }
     }
     IEnumerator Item_add_life(bool skip)
     {
@@ -216,19 +246,5 @@ public class Paddle : MonoBehaviour
         }
     }
     */
-    IEnumerator Item_paddle_shoot(bool skip)
-    {
-        if (!skip)
-        {
-            _paddleBc.tag = "ShootingPaddle";
-            for (int i = 0; i < 15; i++)
-            {
-                GameObject Bullet = Instantiate(bullet, _paddleRb.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
-                Bullet.GetComponent<Rigidbody2D>().velocity = new Vector3(0f, 6f, 0f);
-                Destroy(Bullet, 5);
-                yield return new WaitForSeconds(0.3f);
-            }
-        }
-        _paddleBc.tag = "Paddle";
-    }
+    
 }
