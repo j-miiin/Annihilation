@@ -7,85 +7,47 @@ using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
-    private int stageValue = 1;
+    public DataManager _dataManager;
 
-    public static StageManager SM;
-
-	[Header("¾À ÆäÀÌµå ½Ã°£")]
+	//[Header("ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ã°ï¿½")]
 	[SerializeField] float fadeValue = 1f;
 	[SerializeField] float fadeTime = 1f;
 
-    public TMP_Text starRatingText;
+    private UISwipeStageThumbnail _uiSwipeStageThumbnail;
 
-    public Image star1Image;
-    public Image star2Image;
-    public Image star3Image;
+    public static StageManager Instance;
 
-
-    //StageManager¸¦ GameManager·Î °¡Á®°¨
     private void Awake()
     {
-        SM = this;
-        DontDestroyOnLoad(this);
+        Instance = this;
     }
 
-    //½ºÅ×ÀÌÁö ÀÌ¹ÌÁö¸¦ ´­·¶À» ¶§ ½ºÅ×ÀÌÁö ·¹º§ ÅØ½ºÆ®¿¡ µû¶ó ½ºÅ×ÀÌÁö º§·ù°ª ºÎ¿© ÈÄ GameScene ·Îµå
-    public void gameStart(SwipeUI swipeUI)
+    private void Start()
     {
-        if (swipeUI.StageLevelText.text == "EASY")
-        {
-            stageValue = 1;
-        }
-        else if (swipeUI.StageLevelText.text == "NORMAL")
-        {
-			stageValue = 2;
-		}
-		else if (swipeUI.StageLevelText.text == "HARD")
-		{
-			stageValue = 3;
-		}
-        if (stageValue <= PlayerPrefs.GetInt(StringKey.LOCKED_STAGE_PREFS)) SceneManager.LoadScene("GameScene");
+        _uiSwipeStageThumbnail = StageUIManager.Instance.GetUIComponent<UISwipeStageThumbnail>();
     }
 
-    void Start()
+    // ê²Œì„ ì‹œì‘ ì‹œ ìœ ì €ê°€ ì„ íƒí•œ UIì— ë”°ë¼ ê°ê° ë‹¤ë¥¸ stage valueë¥¼ ì„¤ì • í›„ í•´ê¸ˆëœ ìŠ¤í…Œì´ì§€ë¼ë©´ ê²Œì„ì”¬ ë¡œë“œ
+    public void StartGame(int stage)
     {
-        int starRating = PlayerPrefs.GetInt("StarRating", 0);
-
-        if (starRatingText != null)
-        {
-            starRatingText.text = "Star Rating: " + starRating.ToString();
-        }
-
-        if (star1Image != null && star2Image != null && star3Image != null)
-        {
-            SetStarImage(starRating);
-        }
+        _dataManager.curStage = stage;
+        if (stage <= _dataManager.lockedStage) SceneManager.LoadScene("GameScene");
     }
 
-
-    public void SetStarImage(int starRating)
+    public int GetLockedStage()
     {
-        Sprite filledStar = Resources.Load<Sprite>("Image/StarImage/filled_star_img");
-        Sprite emptyStar = Resources.Load<Sprite>("Image/StarImage/empty_star_img");
-
-        star1Image.sprite = (starRating >= 1) ? filledStar : emptyStar;
-        star2Image.sprite = (starRating >= 2) ? filledStar : emptyStar;
-        star3Image.sprite = (starRating >= 3) ? filledStar : emptyStar;
+        return _dataManager.lockedStage;
     }
 
-    public int GetStage()
+    public int GetStarNum(int stage)
     {
-        return stageValue;
-    }
-
-    public void SetStage(int value)
-    {
-        SM.stageValue = value;
+        if (stage == 1) return _dataManager.easyStar;
+        else if (stage == 2) return _dataManager.normalStar;
+        else return _dataManager.hardStar;
     }
 
     public void DeletePlayerInfo()
     {
         PlayerPrefs.DeleteKey("StarRating");
-
     }
 }

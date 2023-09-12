@@ -1,27 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
-    // ¿î¼® ºí·° grid ÇÁ¸®ÆÕ
+    private UIGameOverPanel _gameOverPanel;
+    private UIScoreAndTimePanel _scoreAndTimePanel;
+
+    // ìƒì„±í•  ìš´ì„ grid prefab
     private string _meteorPrefabName;
-    // ¹è°æ ÀÌ¹ÌÁö
+    // ìŠ¤í…Œì´ì§€ ë°°ê²½ ì´ë¯¸ì§€ ë¦¬ì†ŒìŠ¤ ì´ë¦„
     private string _backgroundImage;
 
-    private bool _isOver;   // ½ºÅ×ÀÌÁö ½ÇÆĞ Á¶°Ç ´Ş¼º ½Ã GameManager°¡ true·Î ¹Ù²ãÁÖ´Â °ª
+    private bool _isOver;   // GameManagerì—ì„œ ê²Œì„ ì‹¤íŒ¨ ì¡°ê±´ ë‹¬ì„± ì‹œ ë°”ë€ŒëŠ” ê°’
+    private float _runningTime = 0f;
+    private int _score = 0;
 
     void Start()
     {
         InitStage();
+        InitUIComponent();
     }
 
     void Update()
     {
-        // TODO MeteorController ¿Ï¼º ½Ã ÁÖ¼® Ç®±â
+        UpdateTime();
+
         if (AllMeteorsDestroyed())
         {
             GameOver(true);
@@ -40,46 +49,66 @@ public class Stage : MonoBehaviour
         Instantiate(Resources.Load<GameObject>("Prefabs/Stages/" + _meteorPrefabName));
     }
 
-    //¸ğµç ¿î¼® ÆÄ±« ¿©ºÎ È®ÀÎ
+    private void InitUIComponent()
+    {
+        _gameOverPanel = GameUIManager.Instance.GetUIComponent<UIGameOverPanel>();
+        _scoreAndTimePanel = GameUIManager.Instance.GetUIComponent<UIScoreAndTimePanel>();
+    }
+
+    private void UpdateTime()
+    {
+        _runningTime += Time.deltaTime;
+        _scoreAndTimePanel.SetTimeText(_runningTime.ToString("N2"));
+    }
+
+    // ëª¨ë“  ìš´ì„ì´ íŒŒê´´ë˜ì—ˆëŠ”ì§€ í™•ì¸
     private bool AllMeteorsDestroyed()
     {
         GameObject[] meteors = GameObject.FindGameObjectsWithTag("Meteor");
         return meteors.Length == 0;
     }
 
-    // isClear == true ÀÌ¸é ½ºÅ×ÀÌÁö Å¬¸®¾î, false ÀÌ¸é ½ÇÆĞ
+    // isClear == true ì´ë©´ ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´, false ì´ë©´ ìŠ¤í…Œì´ì§€ ì‹¤íŒ¨
     private void GameOver(bool isClear)
     {
         Time.timeScale = 0f;
 
-        StageUIManager.S.SetStageEndPanel(isClear, GameManager.I.starRating);
+        int starRating = 0;
+        if (isClear)
+        {
+            starRating = GetStageStarResult();  // ìŠ¤í…Œì´ì§€ë¥¼ í´ë¦¬ì–´í–ˆë‹¤ë©´ ë³„ì ì„ ê³„ì‚°
+            GameManager.Instance.SaveData(starRating);
+            GameManager.Instance.UpdateLockedStage();
+        } 
+        _gameOverPanel.SetGameOverPanel(isClear, _score, starRating);
     }
 
-    // GameManager¿¡¼­ È£ÃâÇÏ¿© Stage Á¤º¸ ¼³Á¤
+    private int GetStageStarResult()
+    {
+        int finalScore = _score + Mathf.FloorToInt(1000 / _runningTime);
+
+        int starRating = finalScore / 100;
+        starRating = Math.Min(starRating, 3);
+
+        return starRating;
+    }
+
+    // GameManagerì—ì„œ ë°›ì•„ì˜¨ ìš´ì„ grid í”„ë¦¬íŒ¹ ì´ë¦„ê³¼ ìŠ¤í…Œì´ì§€ ë°°ê²½ ì´ë¯¸ì§€ ë¦¬ì†ŒìŠ¤ ì´ë¦„ ì„¸íŒ…
     public void SetStageInfo(string meteorPrefabName, string backgroundImage)
     {
         _meteorPrefabName = meteorPrefabName;
         _backgroundImage = backgroundImage;
     }
 
-    // GameManager¿¡¼­ ½ºÅ×ÀÌÁö ½ÇÆĞ Á¶°Ç ´Ş¼º ½Ã È£Ãâ
+    // GameManagerì—ì„œ ìŠ¤í…Œì´ì§€ ì‹¤íŒ¨ ì¡°ê±´ ë‹¬ì„± ì‹œ í˜¸ì¶œ
     public void StageFail()
     {
         _isOver = true;
     }
 
-    public void GoHome()
+    public void UpdateScore(int score)
     {
-
-    }
-
-    public void RetryGame()
-    {
-
-    }
-
-    public void GoNextStageBtn()
-    {
-
+        _score += score;
+        _scoreAndTimePanel.SetScoreText(_score);
     }
 }
