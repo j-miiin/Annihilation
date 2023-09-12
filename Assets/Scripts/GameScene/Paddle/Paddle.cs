@@ -27,6 +27,8 @@ public class Paddle : MonoBehaviour
     private float _paddlespeed = 5.0f;
     private Sprite[] _changePaddleAndBall;
 
+    private PlayerHealth _playerHealth;
+
     public float baseBallSpeed = 250;
     public float ballSpeed;
 
@@ -51,6 +53,8 @@ public class Paddle : MonoBehaviour
         _ballRb = ball.GetComponent<Rigidbody2D>();
         _ballSr = ball.GetComponent<SpriteRenderer>();
         _ballCc = ball.GetComponent<CircleCollider2D>();
+
+        _playerHealth = GetComponent<PlayerHealth>();
 
         /*
         _meteor = GameObject.FindGameObjectsWithTag("Meteor");
@@ -212,11 +216,13 @@ public class Paddle : MonoBehaviour
     IEnumerator Item_add_life(bool skip)
     {
         if (!skip)
-        { 
-            yield return new WaitForSeconds(1);
+        {
+            _playerHealth.playerHealth += 1;
+            _playerHealth.UpdateHealth();
+            yield return new WaitForSeconds(0);
         }
     }
-    
+
     /*
     IEnumerator Item_ball_three(bool skip)
     {
@@ -246,5 +252,5 @@ public class Paddle : MonoBehaviour
         }
     }
     */
-    
+
 }
