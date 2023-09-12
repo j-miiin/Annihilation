@@ -24,7 +24,7 @@ public class GameOverPanel : MonoBehaviour
     private void Awake()
     {
         SetBtn();
-        //StageUIManager.Instance.AddUIComponent(this);
+        StageUIManager.Instance.AddUIComponent(this);
     }
 
     public void SetBtn()

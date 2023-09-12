@@ -8,10 +8,10 @@ public class ScoreAndTimePanel : MonoBehaviour
     [SerializeField] private TMP_Text _scoreText;
     [SerializeField] private TMP_Text _timeText;
 
-    //private void Awake()
-    //{
-    //    StageUIManager.Instance.AddUIComponent(this);
-    //}
+    private void Awake()
+    {
+        StageUIManager.Instance.AddUIComponent(this);
+    }
 
     public void SetScoreText(int score)
     {

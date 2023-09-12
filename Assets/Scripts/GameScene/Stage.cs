@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
+    private GameOverPanel _gameOverPanel;
+    private ScoreAndTimePanel _scoreAndTimePanel;
+
     // 생성할 운석 grid prefab
     private string _meteorPrefabName;
     // 스테이지 배경 이미지 리소스 이름
@@ -21,6 +24,7 @@ public class Stage : MonoBehaviour
     void Start()
     {
         InitStage();
+        InitUIComponent();
     }
 
     void Update()
@@ -45,10 +49,16 @@ public class Stage : MonoBehaviour
         Instantiate(Resources.Load<GameObject>("Prefabs/Stages/" + _meteorPrefabName));
     }
 
+    private void InitUIComponent()
+    {
+        _gameOverPanel = StageUIManager.Instance.GetUIComponent<GameOverPanel>();
+        _scoreAndTimePanel = StageUIManager.Instance.GetUIComponent<ScoreAndTimePanel>();
+    }
+
     private void UpdateTime()
     {
         _runningTime += Time.deltaTime;
-        StageUIManager.Instance.scoreAndTimePanel.GetComponent<ScoreAndTimePanel>().SetTimeText(_runningTime.ToString("N2"));
+        _scoreAndTimePanel.SetTimeText(_runningTime.ToString("N2"));
     }
 
     // 모든 운석이 파괴되었는지 확인
@@ -72,7 +82,7 @@ public class Stage : MonoBehaviour
         }
 
         GameManager.Instance.SaveData(starRating);
-        StageUIManager.Instance.gameOverPanel.GetComponent<GameOverPanel>().SetGameOverPanel(isClear, _score, starRating);
+        _gameOverPanel.SetGameOverPanel(isClear, _score, starRating);
     }
 
     private int GetStageStarResult()
@@ -101,8 +111,6 @@ public class Stage : MonoBehaviour
     public void UpdateScore(int score)
     {
         _score += score;
-        StageUIManager.Instance.scoreAndTimePanel.GetComponent<ScoreAndTimePanel>().SetScoreText(_score);
-        //ScoreAndTimePanel scoreAndTimePanel = (ScoreAndTimePanel)StageUIManager.Instance.GetUIComponent("ScoreAndTimePanel");
-        //scoreAndTimePanel.SetScoreText(_score);
+        _scoreAndTimePanel.SetScoreText(_score);
     }
 }
