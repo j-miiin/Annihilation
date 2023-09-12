@@ -58,6 +58,7 @@ public class Meteor : MonoBehaviour
                     spriteRenderer.sprite = ChangeMeteors[Hardness - 1];
                 }
             }
+            /*
             else if (gameObject.CompareTag("WeakMeteor"))
             {
                 Hardness = 0;
@@ -65,6 +66,7 @@ public class Meteor : MonoBehaviour
                 ItemManager.instance.ItemGenerator(boxCollider.transform.position);
             }
             else { }
+            */
 		}
     }
     private void OnTriggerEnter2D(Collider2D collision)

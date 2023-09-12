@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,7 +11,6 @@ public class Paddle : MonoBehaviour
     public GameObject paddle;
     public GameObject ball;
     public GameObject bullet;
-    
 
     private Rigidbody2D _paddleRb;
     private SpriteRenderer _paddleSr;
@@ -22,23 +22,25 @@ public class Paddle : MonoBehaviour
     private GameObject[] _meteor;
     private BoxCollider2D[] _meteorBc;
 
+    private bool _isShoot = false;
     private float _rotationX;
     private float _paddlespeed = 5.0f;
     private Sprite[] _changePaddle;
 
+    public float baseBallSpeed = 250;
+    public float ballSpeed;
+
     public KeyCode Left;
     public KeyCode Right;
+    public KeyCode Space;
 
     void Start()
     {
         _changePaddle = new Sprite[]
         {
-            Resources.Load<Sprite>("Image/PaddleImage/paddleBig"),
-            Resources.Load<Sprite>("Image/PaddleImage/paddleNormal"),
-            Resources.Load<Sprite>("Image/PaddleImage/paddleSmall"),
-            Resources.Load<Sprite>("Image/PaddleImage/shootingPaddleBig"),
-            Resources.Load<Sprite>("Image/PaddleImage/shootingPaddleNormal"),
-            Resources.Load<Sprite>("Image/PaddleImage/shootingPaddleSmall")
+            Resources.Load<Sprite>("Image/PaddleImage/PaddleBig"),
+            Resources.Load<Sprite>("Image/PaddleImage/PaddleNormal"),
+            Resources.Load<Sprite>("Image/PaddleImage/PaddleSmall")
         };
 
         _paddleRb = paddle.GetComponent<Rigidbody2D>();
@@ -49,11 +51,16 @@ public class Paddle : MonoBehaviour
         _ballSr = ball.GetComponent<SpriteRenderer>();
         _ballCc = ball.GetComponent<CircleCollider2D>();
 
+        /*
         _meteor = GameObject.FindGameObjectsWithTag("Meteor");
         for (int i = 0; i < _meteor.Length; i++)
         {
             _meteorBc[i] = _meteor[i].GetComponent<BoxCollider2D>();
         }
+        */
+
+        StopCoroutine("GameInit");
+        StartCoroutine("GameInit");
     }
 
     void Update()
@@ -62,9 +69,32 @@ public class Paddle : MonoBehaviour
         if (Input.GetKey(Left)) { _rotationX -= 1f; }
         if (Input.GetKey(Right)) { _rotationX += 1f; }
         _paddleRb.velocity = new Vector3(_rotationX * _paddlespeed, 0, 0);
+
+        if (_isShoot == false)
+        {
+            _ballRb.transform.position = _paddleRb.transform.position + new Vector3(0, 0.13f, 0);
+        }
     }
- 
-    private void OnTriggerEnter2D(Collider2D collision)      // 패들에 닿을때마다 무작위 각도 발사
+    IEnumerator GameInit()
+    {
+        while (true)
+        {
+            if (!_isShoot && (Input.GetKey(Space)))
+            {
+                _isShoot = true;
+                ballSpeed = baseBallSpeed;
+                _ballRb.AddForce(new Vector2(0.1f, 0.9f).normalized * ballSpeed);      // 처음 발사 방향 일단 고정되어 있음
+            }
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+    public void BallAddForce(Rigidbody2D BallRb)
+    {
+        Vector2 dir = BallRb.velocity.normalized;
+        BallRb.velocity = Vector2.zero;
+        BallRb.AddForce(dir * ballSpeed);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Item"))
         {
@@ -72,7 +102,6 @@ public class Paddle : MonoBehaviour
             GetItem(collision);
         }
     }
-
     public void GetItem(Collider2D collision)
     {
         switch (collision.gameObject.name)
@@ -82,9 +111,9 @@ public class Paddle : MonoBehaviour
                 StartCoroutine("Item_paddle_small", false);
                 Debug.Log("Get Item_paddle_small");
                 break;
-            case "Item_ball_fast":      // 공 물리 수정하고 만드는게 나을듯
-                // Vector2 dir = ball.velocity.normalized;
-                // ball.AddForce(dir * 5.0f);
+            case "Item_ball_fast":         // 15초동안 공 1.2배 빨라짐
+                StopCoroutine("Item_ball_fast");
+                StartCoroutine("Item_ball_fast", false);
                 Debug.Log("Get Item_ball_fast");
                 break;
             case "Item_paddle_big":
@@ -92,12 +121,12 @@ public class Paddle : MonoBehaviour
                 StartCoroutine("Item_paddle_big", false);
                 Debug.Log("Get Item_paddle_big");
                 break;
-            case "Item_ball_fireball":      // 4초동안 파이어볼 상태
-                StopCoroutine("Item_ball_fireball");
-                StartCoroutine("Item_ball_fireball", false);
-                Debug.Log("Get Item_ball_fireball");
+            case "Item_add_life":
+                StopCoroutine("Item_add_life");
+                StartCoroutine("Item_add_life", false);
+                Debug.Log("Get Item_add_life");
                 break;
-            case "Item_paddle_shoot":       // 패들 주황부분이 하늘색으로 바뀌고 4.5초동안 총알이 중앙에서 자동으로 1발씩 15번 발사
+            case "Item_paddle_shoot":       // 4.5초동안 총알이 중앙에서 자동으로 1발씩 15번 발사
                 StopCoroutine("Item_paddle_shoot");
                 StartCoroutine("Item_paddle_shoot", false);
                 Debug.Log("Get Item_paddle_shoot");
@@ -110,33 +139,15 @@ public class Paddle : MonoBehaviour
         {
             if (_paddleSr.size.x < 0.8f) // 작은 상태일 때
             {
-                if (_paddleBc.CompareTag("ShootingPaddle"))
-                {
-                    _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
-                    _paddleBc.size = new Vector2(_paddleBc.size.x + 0.28f, 0.2f);
-                    _paddleSr.sprite = _changePaddle[4];
-                }
-                else
-                {
-                    _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
-                    _paddleBc.size = new Vector2(_paddleBc.size.x + 0.28f, 0.2f);
-                    _paddleSr.sprite = _changePaddle[1];
-                }
+                _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
+                _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
+                _paddleSr.sprite = _changePaddle[1];
             }
             else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // 중간 크기 상태일 때
             {
-                if (_paddleBc.CompareTag("ShootingPaddle"))
-                {
-                    _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
-                    _paddleBc.size = new Vector2(_paddleBc.size.x + 0.28f, 0.2f);
-                    _paddleSr.sprite = _changePaddle[3];
-                }
-                else
-                {
-                    _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
-                    _paddleBc.size = new Vector2(_paddleBc.size.x + 0.28f, 0.2f);
-                    _paddleSr.sprite = _changePaddle[0];
-                }
+                _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
+                _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
+                _paddleSr.sprite = _changePaddle[0];
             }
             else { }    // 이미 커진 상태일 때 아무것도 안함 (스코어 올릴순 있음)
             yield return new WaitForSeconds(1);
@@ -146,36 +157,44 @@ public class Paddle : MonoBehaviour
     {
         if (_paddleSr.size.x > 1.2f) // 큰 상태일 떄
         {
-            if (_paddleBc.CompareTag("ShootingPaddle"))
-            {
-                _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
-                _paddleBc.size = new Vector2(_paddleBc.size.x - 0.22f, 0.2f);
-                _paddleSr.sprite = _changePaddle[4];
-            }
-            else
-            {
-                _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
-                _paddleBc.size = new Vector2(_paddleBc.size.x - 0.22f, 0.2f);
-                _paddleSr.sprite = _changePaddle[1];
-            }
+            _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
+            _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
+            _paddleSr.sprite = _changePaddle[1];
         }
         else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // 중간 크기 상태일 때
         {
-            if (_paddleBc.CompareTag("ShootingPaddle"))
-            {
-                _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
-                _paddleBc.size = new Vector2(_paddleBc.size.x - 0.22f, 0.2f);
-                _paddleSr.sprite = _changePaddle[5];
-            }
-            else
-            {
-                _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
-                _paddleBc.size = new Vector2(_paddleBc.size.x - 0.22f, 0.2f);
-                _paddleSr.sprite = _changePaddle[2];
-            }
+            _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
+            _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
+            _paddleSr.sprite = _changePaddle[2];
         }
         else { }    // 이미 작은 상태일 때 아무것도 안함 (스코어 올릴순 있음)
         yield return new WaitForSeconds(1);
+    }
+    IEnumerator Item_ball_fast(bool skip)
+    {
+        if (!skip)
+        {
+            ballSpeed = 300;
+            yield return new WaitForSeconds(15);
+        }
+        ballSpeed = baseBallSpeed;
+    }
+    IEnumerator Item_add_life(bool skip)
+    {
+        if (!skip)
+        { 
+            yield return new WaitForSeconds(1);
+        }
+    }
+    
+    /*
+    IEnumerator Item_ball_three(bool skip)
+    {
+        if (!skip)
+        {
+            
+            yield return new WaitForSeconds(1);
+        }
     }
     IEnumerator Item_ball_fireball(bool skip)
     {
@@ -196,25 +215,12 @@ public class Paddle : MonoBehaviour
             _meteorBc[i].isTrigger = false;
         }
     }
+    */
     IEnumerator Item_paddle_shoot(bool skip)
     {
         if (!skip)
         {
-            if (_paddleSr.size.x > 1.2f)
-            {
-                _paddleSr.sprite = _changePaddle[3];
-                _paddleBc.tag = "ShootingPaddle";
-            }
-            else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)
-            {
-                _paddleSr.sprite = _changePaddle[4];
-                _paddleBc.tag = "ShootingPaddle";
-            }
-            else // (_paddleSr.size.x < 0.8f)
-            {
-                _paddleSr.sprite = _changePaddle[5];
-                _paddleBc.tag = "ShootingPaddle";
-            }
+            _paddleBc.tag = "ShootingPaddle";
             for (int i = 0; i < 15; i++)
             {
                 GameObject Bullet = Instantiate(bullet, _paddleRb.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
@@ -222,45 +228,7 @@ public class Paddle : MonoBehaviour
                 Destroy(Bullet, 5);
                 yield return new WaitForSeconds(0.3f);
             }
-            // yield return new WaitForSeconds(4);
         }
-        if (_paddleSr.size.x > 1.2f)
-        {
-            _paddleSr.sprite = _changePaddle[0];
-            _paddleBc.tag = "Paddle";
-        }
-        else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)
-        {
-            _paddleSr.sprite = _changePaddle[1];
-            _paddleBc.tag = "Paddle";
-        }
-        else // (_paddleSr.size.x < 0.8f)
-        {
-            _paddleSr.sprite = _changePaddle[2];
-            _paddleBc.tag = "Paddle";
-        }
+        _paddleBc.tag = "Paddle";
     }
-    /*
-     * private void OnCollisionEnter2D(Collision2D collision)      // 한번 발사된 각도로 무한 고정됨
-    {
-        if(collision.collider.CompareTag("Ball"))
-        {
-            if (isShoot == false)
-            {
-                Vector3 tmp = collision.transform.eulerAngles;
-                int r = Random.Range(0, shootAngles.Length);
-                tmp.z = shootAngles[r];
-                collision.transform.eulerAngles = tmp;
-                isShoot = true;
-            }
-            else
-            {
-                Vector3 tmp = collision.transform.eulerAngles;
-                tmp.z = C_RADIAN - tmp.z;
-                collision.transform.eulerAngles = tmp;
-            }
-        }
-        // if (collision.tag == "Item")
-    }
-    */
 }
