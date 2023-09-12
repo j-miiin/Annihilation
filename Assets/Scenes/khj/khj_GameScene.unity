@@ -262,12 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b551dfcf33616544a85dcadeacf838a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dataManager: {fileID: 0}
   _stage: {fileID: 934020621}
-  finalScore: 0
-  score: 0
-  scoreText: {fileID: 0}
-  starRating: 0
-  timeText: {fileID: 0}
 --- !u!4 &343540374
 Transform:
   m_ObjectHideFlags: 0
