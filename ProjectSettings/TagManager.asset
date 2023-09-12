@@ -11,14 +11,13 @@ TagManager:
   - Meteor
   - Bottom
   - Item
-  - Fireball
-  - ShootingPaddle
   - Bullet
+  - Strongball
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Paddle
   - Water
   - UI
   - 
