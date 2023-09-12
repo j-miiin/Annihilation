@@ -807,6 +807,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1171472737 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1804201470211106220, guid: c6b87a8f719868b4aa894c0a936d2dde, type: 3}
+  m_PrefabInstance: {fileID: 1853578121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1400278475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,6 +1051,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Paddle
       objectReference: {fileID: 0}
+    - target: {fileID: 3938464819655136257, guid: c6f4545d712784642a607ebaaeb4a4e7, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1171472737}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
