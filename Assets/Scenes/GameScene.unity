@@ -1043,6 +1043,10 @@ PrefabInstance:
       value: Paddle
       objectReference: {fileID: 0}
     - target: {fileID: 3617453958717701564, guid: c6f4545d712784642a607ebaaeb4a4e7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3617453958717701564, guid: c6f4545d712784642a607ebaaeb4a4e7, type: 3}
       propertyPath: m_TagString
       value: Paddle
       objectReference: {fileID: 0}
