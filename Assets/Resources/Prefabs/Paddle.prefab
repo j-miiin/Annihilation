@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 3273797537115761539, guid: eabc71c53693483449e87e6fabd9b204, type: 3}
   paddle: {fileID: 3617453958717701564}
-  ball: {fileID: 0}
+  ball: {fileID: 1804201470211106220, guid: c6b87a8f719868b4aa894c0a936d2dde, type: 3}
   bullet: {fileID: 2175948031493718642, guid: cd5b10ead64378344865bb933a128d0b, type: 3}
   baseBallSpeed: 200
   ballSpeed: 0

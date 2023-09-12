@@ -11,9 +11,8 @@ TagManager:
   - Meteor
   - Bottom
   - Item
-  - Fireball
-  - ShootingPaddle
   - Bullet
+  - Strongball
   layers:
   - Default
   - TransparentFX
