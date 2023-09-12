@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Image/GameSetting.meta
 guid: e82ac55ed6bacca4b94453972a942c3c
+========
+guid: f330f46bfb03ce643b5c96384b5aa386
+>>>>>>>> Stashed changes:Assets/Image/StartScene.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

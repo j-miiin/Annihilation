@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Image/StartScene.meta
 guid: f330f46bfb03ce643b5c96384b5aa386
+========
+guid: fa15a2c9fd91f324bbef3408fee1014b
+>>>>>>>> Stashed changes:Assets/Image/StartScene/Dust.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

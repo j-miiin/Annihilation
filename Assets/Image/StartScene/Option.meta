@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Image/StartScene/Option.meta
 guid: faa40bb79e58ad640a9cd909d10eba5e
+========
+guid: 44bc95a9439785c47bf899336004deb8
+>>>>>>>> Stashed changes:Assets/Image/StartScene/Planet.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
