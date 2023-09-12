@@ -31,7 +31,7 @@ public class StageManager : MonoBehaviour
     public void StartGame(int stage)
     {
         _dataManager.curStage = stage;
-        if (stage <= _dataManager.lockedStage) SceneManager.LoadScene("kjm-GameScene");
+        if (stage <= _dataManager.lockedStage) SceneManager.LoadScene("GameScene");
     }
 
     public int GetLockedStage()

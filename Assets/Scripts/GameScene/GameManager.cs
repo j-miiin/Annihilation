@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     public void GoHome()
     {
-        SceneManager.LoadScene("kjm-StageScene");
+        SceneManager.LoadScene("StageScene");
     }
 
     public void RetryGame()
