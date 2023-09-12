@@ -91,7 +91,7 @@ public class Meteor : MonoBehaviour
     {
         particle.Play();
 
-        GameManager.I.UpdateScore(Score);
+        GameManager.Instance.UpdateScore(Score);
 
 		spriteRenderer.enabled = false;
         boxCollider.enabled = false;
