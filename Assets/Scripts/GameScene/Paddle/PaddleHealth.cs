@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public int playerHealth;
 
-    [SerializeField] private Image[] hearts;
+    [SerializeField] private SpriteRenderer[] hearts;
     [SerializeField] private Color invincibleColor;
     [SerializeField] private int meteorDamage;
     [SerializeField] private float invincibleTime = 3f;
@@ -26,14 +26,14 @@ public class PlayerHealth : MonoBehaviour
     {
         if (playerHealth <= 0)
         {
-            // 스테이지 실패
+            GameManager.Instance.GameOver();
         }
 
         for (int i = 0; i < hearts.Length; i++)
         {
             if (i < playerHealth)
             {
-                hearts[i].color = Color.red;
+                hearts[i].color = Color.white;
             }
             else
             {
@@ -60,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (playerSpriteRenderer != null)
         {
-            playerSpriteRenderer.color = Color.black;
+            playerSpriteRenderer.color = Color.white;
         }
     }
 
