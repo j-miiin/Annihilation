@@ -14,16 +14,6 @@ public class ItemManager : MonoBehaviour
     {
         instance = this;
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void ItemGenerator(Vector2 Meteor)
     {
         int x = Random.Range(0, 3); // 5대신 10 하면 20%에서 10%

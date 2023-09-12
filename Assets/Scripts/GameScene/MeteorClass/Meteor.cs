@@ -45,6 +45,35 @@ public class Meteor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
+            if (gameObject.CompareTag("Meteor"))
+            {
+                Hardness--;
+                if (Hardness <= 0)
+                {
+                    StartCoroutine(DestroyMeteor());
+                    ItemManager.instance.ItemGenerator(boxCollider.transform.position);
+                }
+                else
+                {
+                    spriteRenderer.sprite = ChangeMeteors[Hardness - 1];
+                }
+            }
+            /*
+            else if (gameObject.CompareTag("WeakMeteor"))
+            {
+                Hardness = 0;
+                StartCoroutine(DestroyMeteor());
+                ItemManager.instance.ItemGenerator(boxCollider.transform.position);
+            }
+            else { }
+            */
+		}
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    { 
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(collision.gameObject);
             Hardness--;
             if (Hardness <= 0)
             {
@@ -53,9 +82,9 @@ public class Meteor : MonoBehaviour
             }
             else
             {
-				spriteRenderer.sprite = ChangeMeteors[Hardness - 1];
-			}
-		}
+                spriteRenderer.sprite = ChangeMeteors[Hardness - 1];
+            }
+        }
     }
 
     private IEnumerator DestroyMeteor()

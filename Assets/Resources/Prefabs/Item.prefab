@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8182084191723937422
 SpriteRenderer:
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 3273797537115761539}
-  itemColor: {fileID: 8182084191723937422}
-  paddle: {fileID: 4469887951486600752, guid: c6f4545d712784642a607ebaaeb4a4e7, type: 3}
+  paddleRb: {fileID: 4469887951486600752, guid: c6f4545d712784642a607ebaaeb4a4e7, type: 3}
+  paddleSr: {fileID: 7909125132949014448, guid: c6f4545d712784642a607ebaaeb4a4e7, type: 3}
+  paddleBc: {fileID: 6141232218962726716, guid: c6f4545d712784642a607ebaaeb4a4e7, type: 3}
   ball: {fileID: 4657389426788176653, guid: c6b87a8f719868b4aa894c0a936d2dde, type: 3}
