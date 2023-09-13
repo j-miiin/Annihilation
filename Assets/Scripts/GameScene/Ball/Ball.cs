@@ -8,7 +8,6 @@ using static UnityEditor.Progress;
 public class Ball : MonoBehaviour
 {
     const float C_RADIAN = 180f;
-    public GameObject ball;
     GameObject paddle;
     
     private float _speed = 4.0f;
