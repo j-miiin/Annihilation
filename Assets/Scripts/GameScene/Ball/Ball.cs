@@ -52,11 +52,11 @@ public class Ball : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector3 contactPoint = collision.contacts[0].point;
+        // Vector3 contactPoint = collision.contacts[0].point;
         if (collision.collider.CompareTag("TopWall"))
         {
-            _ballRb.velocity = Vector2.zero;
-            _ballRb.AddForce((_ballRb.transform.position - contactPoint).normalized * paddle.GetComponent<Paddle>().ballSpeed);
+            // _ballRb.velocity = Vector2.zero;
+            // _ballRb.AddForce((_ballRb.transform.position - contactPoint).normalized * paddle.GetComponent<Paddle>().ballSpeed);
         }
         else if (collision.collider.CompareTag("Wall"))
         {
@@ -68,6 +68,12 @@ public class Ball : MonoBehaviour
             _ballRb.AddForce((_ballRb.transform.position - collision.transform.position).normalized * paddle.GetComponent<Paddle>().ballSpeed);
         }
         else if (collision.collider.CompareTag("Meteor"))
+        {
+            // _ballRb.velocity = Vector2.zero;
+            // _ballRb.AddForce((_ballRb.transform.position - contactPoint).normalized * paddle.GetComponent<Paddle>().ballSpeed);
+            // _ballRb.AddForce((_ballRb.transform.position - collision.transform.position).normalized * paddle.GetComponent<Paddle>().ballSpeed);
+        }
+        else if (collision.collider.CompareTag("EdgeWall"))
         {
             _ballRb.velocity = Vector2.zero;
             _ballRb.AddForce((_ballRb.transform.position - collision.transform.position).normalized * paddle.GetComponent<Paddle>().ballSpeed);
