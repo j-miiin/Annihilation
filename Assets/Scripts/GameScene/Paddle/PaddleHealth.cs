@@ -84,6 +84,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!IsInvincible())
         {
+            NewSoundManager.instance.PlayPlayerMeteorCollisionSound();
             TakeDamage(meteorDamage);
         }
     }
