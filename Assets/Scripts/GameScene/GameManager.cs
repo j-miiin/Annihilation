@@ -99,8 +99,11 @@ public class GameManager : MonoBehaviour
 
     public void GoNextStage()
     {
-        if (_dataManager.curStage != 3) _dataManager.curStage += 1;
+        if (_dataManager.curStage != 3)
+        {
+            _dataManager.curStage += 1;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         //else SceneManager.LoadScene("EndingScene");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
