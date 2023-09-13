@@ -43,6 +43,8 @@ public class UIGameOverPanel : MonoBehaviour
 
         SetStarImage(starRating);
         SetNextStageBtnActive(isClear);
+        if (isClear && GameManager.Instance.GetCurStage() == 3) SetHomeBtn(false);
+        else SetHomeBtn(true);
 
         gameObject.SetActive(true);
     }
@@ -53,6 +55,11 @@ public class UIGameOverPanel : MonoBehaviour
         _star1FilledImage.SetActive((starRating >= 1));
         _star2FilledImage.SetActive((starRating >= 2));
         _star3FilledImage.SetActive((starRating >= 3));
+    }
+
+    private void SetHomeBtn(bool isActive)
+    {
+        _homeBtn.interactable = isActive;
     }
 
     // 스테이지 클리어 여부에 따라 다음 스테이지 버튼 활성/비활성화
