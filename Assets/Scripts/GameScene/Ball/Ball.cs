@@ -27,7 +27,7 @@ public class Ball : MonoBehaviour
         PaddleType paddleType = GameManager.Instance.GetPaddleType();
         gameObject.GetComponent<SpriteRenderer>().sprite = _ballSprite[(int)paddleType];
 
-        _ballRb = ball.GetComponent<Rigidbody2D>();
+        _ballRb = gameObject.GetComponent<Rigidbody2D>();
         paddle = GameObject.Find("Paddle");
     }
 

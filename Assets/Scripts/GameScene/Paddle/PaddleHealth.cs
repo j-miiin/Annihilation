@@ -17,7 +17,8 @@ public class PlayerHealth : MonoBehaviour
     private SpriteRenderer playerSpriteRenderer;
 
     private Sprite[] _lifeSprite;
-    private void Awake()
+
+    private void Start()
     {
         _lifeSprite = new Sprite[]
         {
@@ -26,11 +27,8 @@ public class PlayerHealth : MonoBehaviour
         };
 
         PaddleType paddleType = GameManager.Instance.GetPaddleType();
-        for(int i = 0; i < hearts.Length;i ++) hearts[i].sprite = _lifeSprite[(int)paddleType];
-    }
+        for (int i = 0; i < hearts.Length; i++) hearts[i].sprite = _lifeSprite[(int)paddleType];
 
-    private void Start()
-    {
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         UpdateHealth();
     }
