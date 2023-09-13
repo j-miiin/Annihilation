@@ -18,6 +18,7 @@ public class Stage : MonoBehaviour
     private bool _isOver;   // GameManager에서 게임 실패 조건 달성 시 바뀌는 값
     private float _runningTime = 0f;
     private int _score = 0;
+    private bool isPlayed = false;
 
     void Start()
     {
@@ -78,11 +79,19 @@ public class Stage : MonoBehaviour
             GameManager.Instance.SaveData(starRating);
             GameManager.Instance.UpdateLockedStage();
 			
-		    NewSoundManager.instance.PlayClearStageSound();
+		    if (!isPlayed)
+            {
+				NewSoundManager.instance.PlayClearStageSound();
+                isPlayed = true;
+			}
 		}
         else
         {
-			NewSoundManager.instance.PlayFailStageSound();
+            if (!isPlayed)
+            {
+				NewSoundManager.instance.PlayFailStageSound();
+                isPlayed = true;
+			}
 		}
         _gameOverPanel.SetGameOverPanel(isClear, _score, starRating);
     }

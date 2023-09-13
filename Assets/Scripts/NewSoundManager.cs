@@ -8,7 +8,6 @@ public class NewSoundManager : MonoBehaviour
     public AudioClip ballMeteorCollisionSound;
     public AudioClip playerItemPickupSound;
     public AudioClip playerMeteorCollisionSound;
-    public AudioClip clickBtnSound;
 	public AudioClip failStageSound;
 	public AudioClip clearStageSound;
 	public AudioClip shootingSound;
@@ -50,10 +49,7 @@ public class NewSoundManager : MonoBehaviour
         audioSource.PlayOneShot(playerMeteorCollisionSound);
     }
 
-    public void PlayClickBtnSound()
-    {
-		audioSource.PlayOneShot(clickBtnSound);
-	}
+    
 
 	public void PlayFailStageSound()
 	{
