@@ -25,15 +25,15 @@ public class GameManager : MonoBehaviour
         if (_curStage == 1)
         {
             // TODO 스테이지 배경 이미지 정보 세팅
-            _stage.SetStageInfo("NewEasyStageGrid", "");
+            _stage.SetStageInfo("NewEasyStageGrid");
         }
         else if (_curStage == 2)
         {
-            _stage.SetStageInfo("NewNormalStageGrid", "");
+            _stage.SetStageInfo("NewNormalStageGrid");
         }
         else if (_curStage == 3)
         {
-            _stage.SetStageInfo("NewHardStageGrid", "");
+            _stage.SetStageInfo("NewHardStageGrid");
         }
        
         _isOver = false;

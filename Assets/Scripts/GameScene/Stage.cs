@@ -14,8 +14,6 @@ public class Stage : MonoBehaviour
 
     // 생성할 운석 grid prefab
     private string _meteorPrefabName;
-    // 스테이지 배경 이미지 리소스 이름
-    private string _backgroundImage;
 
     private bool _isOver;   // GameManager에서 게임 실패 조건 달성 시 바뀌는 값
     private float _runningTime = 0f;
@@ -94,10 +92,9 @@ public class Stage : MonoBehaviour
     }
 
     // GameManager에서 받아온 운석 grid 프리팹 이름과 스테이지 배경 이미지 리소스 이름 세팅
-    public void SetStageInfo(string meteorPrefabName, string backgroundImage)
+    public void SetStageInfo(string meteorPrefabName)
     {
         _meteorPrefabName = meteorPrefabName;
-        _backgroundImage = backgroundImage;
     }
 
     // GameManager에서 스테이지 실패 조건 달성 시 호출
