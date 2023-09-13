@@ -85,7 +85,7 @@ public class Paddle : MonoBehaviour
             {
                 _isShoot = true;
                 ballSpeed = baseBallSpeed;
-                _ballRb.AddForce(new Vector2(0.1f, 0.9f).normalized * ballSpeed);      // ó�� �߻� ���� �ϴ� �����Ǿ� ����
+                _ballRb.AddForce(new Vector2(0.1f, 0.9f).normalized * ballSpeed);     
             }
             yield return new WaitForSeconds(0.01f);
         }
@@ -114,7 +114,7 @@ public class Paddle : MonoBehaviour
                 StartCoroutine("Item_paddle_small", false);
                 Debug.Log("Get Item_paddle_small");
                 break;
-            case "Item_ball_fast":         // 15�ʵ��� �� 1.2�� ������
+            case "Item_ball_fast":       
                 StopCoroutine("Item_ball_fast");
                 StartCoroutine("Item_ball_fast", false);
                 Debug.Log("Get Item_ball_fast");
@@ -124,12 +124,12 @@ public class Paddle : MonoBehaviour
                 StartCoroutine("Item_paddle_big", false);
                 Debug.Log("Get Item_paddle_big");
                 break;
-            case "Item_ball_strongball":    // 10�ʵ��� �ѹ��� 3�㾿 �μ��� �� (���?���� �ѹ�)
+            case "Item_ball_strongball":   
                 StopCoroutine("Item_ball_strongball");
                 StartCoroutine("Item_ball_strongball", false);
                 Debug.Log("Item_ball_strongball");
                 break;
-            case "Item_paddle_shoot":       // 4.5�ʵ��� �Ѿ��� �߾ӿ��� �ڵ����� 1�߾� 15�� �߻� (���?���� �ѹ�)
+            case "Item_paddle_shoot":    
                 StopCoroutine("Item_paddle_shoot");
                 StartCoroutine("Item_paddle_shoot", false);
                 Debug.Log("Get Item_paddle_shoot");
@@ -145,41 +145,41 @@ public class Paddle : MonoBehaviour
     {
         if (!skip)
         {
-            if (_paddleSr.size.x < 0.8f) // ���� ������ ��
+            if (_paddleSr.size.x < 0.8f) 
             {
                 _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
                 _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
-                _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1];   // Normal�� ����
+                _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1];  
                 Debug.Log(_paddleSr.sprite.name);
             }
-            else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // �߰� ũ�� ������ ��
+            else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  
             {
                 _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
                 _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
-                _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3]; // Big���� ����
+                _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3]; 
                 Debug.Log(_paddleSr.sprite.name);
             }
-            else { }    // �̹� Ŀ�� ������ �� �ƹ��͵� ���� (���ھ� �ø��� ����)
+            else { }   
             yield return new WaitForSeconds(1);
         }
     }
     IEnumerator Item_paddle_small(bool skip)
     {
-        if (_paddleSr.size.x > 1.2f) // ū ������ ��
+        if (_paddleSr.size.x > 1.2f) 
         {
             _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
             _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
-            _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1]; // Normal�� ����
+            _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1];
             Debug.Log(_paddleSr.sprite.name);
         }
-        else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // �߰� ũ�� ������ ��
+        else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  
         {
             _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
             _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
-            _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 2];     // Small�� ����
+            _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 2];    
             Debug.Log(_paddleSr.sprite.name);
         }
-        else { }    // �̹� ���� ������ �� �ƹ��͵� ���� (���ھ� �ø��� ����)
+        else { }   
         yield return new WaitForSeconds(1);
     }
     IEnumerator Item_ball_fast(bool skip)

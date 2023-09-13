@@ -27,8 +27,8 @@ public class ItemManager : MonoBehaviour
             Resources.Load<Sprite>("Image/ItemImage/Item_Life")
         };
 
-        int x = Random.Range(0, 3); // 5대신 10 하면 20%에서 10%
-        if (x == 0)
+        int x = Random.Range(0, 100); // 5대신 10 하면 20%에서 10%
+        if (x < 20)
         {
             int c = Random.Range(0, _colors.Length);
             string currentName = "";
