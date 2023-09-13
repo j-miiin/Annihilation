@@ -39,23 +39,10 @@ public class UIGameOverPanel : MonoBehaviour
     public void SetGameOverPanel(bool isClear, int score, int starRating)
     {
 		_gameOverText.text = isClear ? STAGE_CLEAR : STAGE_FAIL;
-
-        if (isClear == true)
-        {
-			NewSoundManager.instance.PlayClearStageSound();
-		}
-        else
-        {
-			NewSoundManager.instance.PlayFailStageSound();
-		}
         _scoreText.text = "SCORE " + (isClear ? score : 0);
 
         SetStarImage(starRating);
         SetNextStageBtnActive(isClear);
-
-        // 마지막 스테이지 클리어시 홈으로 돌아가기 불가능 -> 엔딩씬으로 이동하게끔 유도
-        if (isClear && GameManager.Instance.GetCurStage() == 3) SetHomeBtnActive(false);
-        else SetHomeBtnActive(true);
 
         gameObject.SetActive(true);
     }
@@ -66,11 +53,6 @@ public class UIGameOverPanel : MonoBehaviour
         _star1FilledImage.SetActive((starRating >= 1));
         _star2FilledImage.SetActive((starRating >= 2));
         _star3FilledImage.SetActive((starRating >= 3));
-    }
-
-    private void SetHomeBtnActive(bool isActive)
-    {
-        _homeBtn.interactable = isActive;
     }
 
     // 스테이지 클리어 여부에 따라 다음 스테이지 버튼 활성/비활성화
