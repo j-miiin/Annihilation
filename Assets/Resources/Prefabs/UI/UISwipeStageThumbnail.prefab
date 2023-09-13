@@ -582,7 +582,7 @@ MonoBehaviour:
         m_MethodName: gameStart
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 3436979524217312117}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: SwipeUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -692,6 +692,7 @@ GameObject:
   - component: {fileID: 499225446803745143}
   - component: {fileID: 9128598246118238554}
   - component: {fileID: 2104102231293159631}
+  - component: {fileID: 3787822206643437182}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -789,6 +790,23 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3787822206643437182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2850574686877471538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c060365f0cbf41b46bed75ade37d423f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stage1ThumbImage: {fileID: 3703611832958589539}
+  _stage2ThumbImage: {fileID: 4939847272046531400}
+  _stage3ThumbImage: {fileID: 2394277303995487061}
+  scrollbar: {fileID: 809866657475906924}
+  scrollPageValues: []
 --- !u!1 &3135933839174079276
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +970,6 @@ GameObject:
   - component: {fileID: 3625702974646256350}
   - component: {fileID: 3009345057123399854}
   - component: {fileID: 3279447065764184056}
-  - component: {fileID: 3436979524217312117}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1023,25 +1040,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!114 &3436979524217312117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547446033145632901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c060365f0cbf41b46bed75ade37d423f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollBar: {fileID: 809866657475906924}
-  swipeTime: 0.2
-  swipeDistance: 30
-  _stage1ThumbImage: {fileID: 3703611832958589539}
-  _stage2ThumbImage: {fileID: 4939847272046531400}
-  _stage3ThumbImage: {fileID: 2394277303995487061}
-  scrollPageValues: []
 --- !u!1 &3564929601138250706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1199,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2585701861329679811}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.33333334
+  m_Size: 0.3333333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1332,7 +1330,7 @@ MonoBehaviour:
         m_MethodName: gameStart
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 3436979524217312117}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: SwipeUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1465,7 +1463,7 @@ MonoBehaviour:
         m_MethodName: gameStart
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 3436979524217312117}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: SwipeUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
