@@ -212,7 +212,6 @@ public class Paddle : MonoBehaviour
 
         if (_trailRenderer != null)
         {
-            // RGBA 값을 0에서 1 사이의 값으로 정규화
             _trailRenderer.startColor = Color.red;
             _trailRenderer.endColor = Color.white;
         }
@@ -235,8 +234,11 @@ public class Paddle : MonoBehaviour
     {
         if (!skip)
         {
-            _playerHealth.playerHealth += 1;
-            _playerHealth.UpdateHealth();
+            if (_playerHealth.playerHealth <= 4)
+            {
+                _playerHealth.playerHealth += 1;
+                _playerHealth.UpdateHealth();
+            }
             yield return new WaitForSeconds(0);
         }
         
