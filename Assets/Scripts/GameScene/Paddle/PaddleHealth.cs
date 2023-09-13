@@ -16,6 +16,19 @@ public class PlayerHealth : MonoBehaviour
 
     private SpriteRenderer playerSpriteRenderer;
 
+    private Sprite[] _lifeSprite;
+    private void Awake()
+    {
+        _lifeSprite = new Sprite[]
+        {
+            Resources.Load<Sprite>("Image/BallImage/DefaultBall"),
+            Resources.Load<Sprite>("Image/BallImage/CheeseBall")
+        };
+
+        PaddleType paddleType = GameManager.Instance.GetPaddleType();
+        for(int i = 0; i < hearts.Length;i ++) hearts[i].sprite = _lifeSprite[(int)paddleType];
+    }
+
     private void Start()
     {
         playerSpriteRenderer = GetComponent<SpriteRenderer>();

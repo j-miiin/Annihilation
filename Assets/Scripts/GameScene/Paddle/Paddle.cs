@@ -34,6 +34,8 @@ public class Paddle : MonoBehaviour
     public KeyCode Right;
     public KeyCode Space;
 
+    private PaddleType paddleType;
+
     void Start()
     {
         _changePaddleAndBall = new Sprite[]
@@ -41,7 +43,9 @@ public class Paddle : MonoBehaviour
             Resources.Load<Sprite>("Image/PaddleImage/PaddleBig"),
             Resources.Load<Sprite>("Image/PaddleImage/PaddleNormal"),
             Resources.Load<Sprite>("Image/PaddleImage/PaddleSmall"),
-            Resources.Load<Sprite>("Image/PaddleImage/Ball")
+            Resources.Load<Sprite>("Image/PaddleImage/CheeseBig"),
+            Resources.Load<Sprite>("Image/PaddleImage/CheeseNormal"),
+            Resources.Load<Sprite>("Image/PaddleImage/CheeseSmall")
         };
 
         _paddleRb = paddle.GetComponent<Rigidbody2D>();
@@ -51,6 +55,10 @@ public class Paddle : MonoBehaviour
         _ballRb = ball.GetComponent<Rigidbody2D>();
         _ballSr = ball.GetComponent<SpriteRenderer>();
         _ballCc = ball.GetComponent<CircleCollider2D>();
+
+        paddleType = GameManager.Instance.GetPaddleType();
+
+        _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1];
 
         /*
         _meteor = GameObject.FindGameObjectsWithTag("Meteor");
@@ -147,13 +155,15 @@ public class Paddle : MonoBehaviour
             {
                 _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
                 _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
-                _paddleSr.sprite = _changePaddleAndBall[1];
+                _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1];   // Normal로 변함
+                Debug.Log(_paddleSr.sprite.name);
             }
             else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // 중간 크기 상태일 때
             {
                 _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
                 _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
-                _paddleSr.sprite = _changePaddleAndBall[0];
+                _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3]; // Big으로 변함
+                Debug.Log(_paddleSr.sprite.name);
             }
             else { }    // 이미 커진 상태일 때 아무것도 안함 (스코어 올릴순 있음)
             yield return new WaitForSeconds(1);
@@ -165,13 +175,15 @@ public class Paddle : MonoBehaviour
         {
             _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
             _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
-            _paddleSr.sprite = _changePaddleAndBall[1];
+            _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1]; // Normal로 변함
+            Debug.Log(_paddleSr.sprite.name);
         }
         else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // 중간 크기 상태일 때
         {
             _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
             _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
-            _paddleSr.sprite = _changePaddleAndBall[2];
+            _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 2];     // Small로 변함
+            Debug.Log(_paddleSr.sprite.name);
         }
         else { }    // 이미 작은 상태일 때 아무것도 안함 (스코어 올릴순 있음)
         yield return new WaitForSeconds(1);
