@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b055f0168728d6d499b6d194ed6f43ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dataManager: {fileID: 0}
   fadeValue: 1
   fadeTime: 1
 --- !u!114 &5804765965358951639
@@ -570,6 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b055f0168728d6d499b6d194ed6f43ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dataManager: {fileID: 0}
   fadeValue: 1
   fadeTime: 1
 --- !u!1 &3873804384738362940
@@ -718,6 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b055f0168728d6d499b6d194ed6f43ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dataManager: {fileID: 0}
   fadeValue: 1
   fadeTime: 1
 --- !u!1 &4371424236732037438
@@ -879,7 +882,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8691716883055972043}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.3333333
+  m_Size: 0.33333334
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1015,8 +1018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c060365f0cbf41b46bed75ade37d423f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollBar: {fileID: 1085890828663734609}
-  swipeTime: 0.2
-  swipeDistance: 30
+  _stage1ThumbImage: {fileID: 659242935065698558}
+  _stage2ThumbImage: {fileID: 3723327487151455908}
+  _stage3ThumbImage: {fileID: 3873804384738362940}
+  scrollbar: {fileID: 1085890828663734609}
   scrollPageValues: []
-  StageLevelText: {fileID: 0}

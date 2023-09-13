@@ -42,9 +42,8 @@ public class SwipeUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
 	private int currentPage = 1;                // 현재 페이지
 	public float[] scrollPageValues;            // 각 페이지의 위치 값 [0.0 - 1.0]
-    private float valueDistance = 0;            // 각 페이지 사이의 거리
 	private int maxPage = 0;                    // 최대 페이지
-
+	private float valueDistance = 0;            // 각 페이지 사이의 거리
 
 	enum StageText
 	{
@@ -56,20 +55,20 @@ public class SwipeUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 	private void Awake()
 	{
 		// 기존
-		//// 스크롤 되는 페이지에 각 value 값을 저장하는 배열 메모리 담당
-		//scrollPageValues = new float[transform.childCount];
+		// 스크롤 되는 페이지에 각 value 값을 저장하는 배열 메모리 담당
+		scrollPageValues = new float[transform.childCount];
 
-		//// 스크롤 되는 페이지 사이의 거리
-		//valueDistance = 1f / (scrollPageValues.Length - 1f);
+		// 스크롤 되는 페이지 사이의 거리
+		valueDistance = 1f / (scrollPageValues.Length - 1f);
 
-		//// 스크롤 되는 페이지의 각 value 위치 설정 [0 <= value <= 1]
-		//for (int i = 0; i < scrollPageValues.Length; ++i)
-		//{
-		//    scrollPageValues[i] = valueDistance * i;
-		//}
+		// 스크롤 되는 페이지의 각 value 위치 설정 [0 <= value <= 1]
+		for (int i = 0; i < scrollPageValues.Length; ++i)
+		{
+			scrollPageValues[i] = valueDistance * i + 0.1f;
+		}
 
 		//// 최대 페이지의 수
-		//maxPage = transform.childCount;
+		maxPage = transform.childCount;
 
 		SetBtn();
     }
@@ -87,7 +86,7 @@ public class SwipeUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         // 최초 시작할 때 마지막으로 해금한 스테이지를 볼 수 있도록 설정
         lockedStage = StageManager.Instance.GetLockedStage();
 
-        //SetScrollBarValue(lockedStage - 1); 
+        SetScrollBarValue(lockedStage - 1); 
         SetStageThumbImage();
     }
 
@@ -144,7 +143,7 @@ public class SwipeUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     private void SetScrollBarValue(int index)
     {
         currentPage = index;
-        if (index >= SIZE) index = SIZE - 1;
+        if (index >= maxPage) index = maxPage - 1;
         scrollbar.value = scrollPageValues[index];
     }
 
