@@ -29,9 +29,9 @@ public class Meteor : MonoBehaviour
     {
 		ChangeMeteors = new Sprite[]
 		{
-			Resources.Load<Sprite>("Image/MeteorImage/EasyMeteorBrick"),
-			Resources.Load<Sprite>("Image/MeteorImage/NormalMeteorBrick"),
-			Resources.Load<Sprite>("Image/MeteorImage/HardMeteorBrick")
+			Resources.Load<Sprite>("Image/MeteorImage/EasyMeteorPurple"),
+			Resources.Load<Sprite>("Image/MeteorImage/NormalMeteorPurple"),
+			Resources.Load<Sprite>("Image/MeteorImage/HardMeteorPurple")
 		};
 
 		spriteRenderer = GetComponent<SpriteRenderer>();
