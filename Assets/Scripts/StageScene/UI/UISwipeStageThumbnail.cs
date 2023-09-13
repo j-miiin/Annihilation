@@ -30,6 +30,6 @@ public class UISwipeStageThumbnail : MonoBehaviour
     public void SetStageLevelText(string stageLevelStr, bool isLocked)
     {
         _stageLevelText.text = stageLevelStr; //stageText[i];
-        _stageLevelText.color = (isLocked) ? Color.grey : Color.white;
+        _stageLevelText.color = (isLocked) ? Color.white : Color.grey;
     }
 }
