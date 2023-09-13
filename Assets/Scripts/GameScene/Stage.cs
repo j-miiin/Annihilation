@@ -85,9 +85,12 @@ public class Stage : MonoBehaviour
     {
         int finalScore = _score + Mathf.FloorToInt(1000 / _runningTime);
 
-        int starRating = finalScore / 100;
-        starRating = Math.Min(starRating, 3);
-
+        int starRating = 0;
+        if (finalScore > 0)
+        { 
+            starRating = finalScore / 100;
+            starRating = Math.Min(starRating, 3);
+        }
         return starRating;
     }
 
