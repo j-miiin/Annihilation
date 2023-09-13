@@ -17,11 +17,13 @@ public class Paddle : MonoBehaviour
     private Rigidbody2D _ballRb;
     private SpriteRenderer _ballSr;
     private CircleCollider2D _ballCc;
+    private TrailRenderer _trailRenderer;
 
     private bool _isShoot = false;
     private float _rotationX;
     private float _paddlespeed = 5.0f;
     private Sprite[] _changePaddleAndBall;
+    private PlayerHealth _playerHealth;
 
     public float baseBallSpeed = 250;
     public float ballSpeed;
@@ -52,6 +54,8 @@ public class Paddle : MonoBehaviour
         _ballRb = ball.GetComponent<Rigidbody2D>();
         _ballSr = ball.GetComponent<SpriteRenderer>();
         _ballCc = ball.GetComponent<CircleCollider2D>();
+        _trailRenderer = ball.GetComponent<TrailRenderer>();
+        _playerHealth = GetComponent<PlayerHealth>();
 
         paddleType = GameManager.Instance.GetPaddleType();
 
@@ -192,10 +196,25 @@ public class Paddle : MonoBehaviour
         {
             _ballSr.color = Color.blue;
             _ballCc.tag = "Strongball";
+
+            if (_trailRenderer != null)
+            {
+                _trailRenderer.startColor = Color.blue;
+                _trailRenderer.endColor = Color.white;
+            }
+
             yield return new WaitForSeconds(10);
         }
+
         _ballSr.color = Color.white;
         _ballCc.tag = "Ball";
+
+        if (_trailRenderer != null)
+        {
+            // RGBA 값을 0에서 1 사이의 값으로 정규화
+            _trailRenderer.startColor = Color.red;
+            _trailRenderer.endColor = Color.white;
+        }
     }
     IEnumerator Item_paddle_shoot(bool skip)
     {
@@ -213,8 +232,11 @@ public class Paddle : MonoBehaviour
     IEnumerator Item_add_life(bool skip)
     {
         if (!skip)
-        { 
-            yield return new WaitForSeconds(1);
+        {
+            _playerHealth.playerHealth += 1;
+            _playerHealth.UpdateHealth();
+            yield return new WaitForSeconds(0);
         }
+        
     }
 }
