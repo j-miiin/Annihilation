@@ -64,4 +64,8 @@ public class NewSoundManager : MonoBehaviour
 		audioSource.PlayOneShot(shootingSound);
 	}
 
+    public void DestroySoundManager()
+    {
+        Destroy(gameObject);
+    }
 }

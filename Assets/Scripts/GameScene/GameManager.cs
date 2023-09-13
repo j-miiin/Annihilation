@@ -104,6 +104,10 @@ public class GameManager : MonoBehaviour
             _dataManager.curStage += 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        else SceneManager.LoadScene("EndScene");
+        else
+        {
+            NewSoundManager.instance.DestroySoundManager();
+            SceneManager.LoadScene("EndScene");
+        }
     }
 }

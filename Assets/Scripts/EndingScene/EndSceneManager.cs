@@ -5,7 +5,7 @@ public class ObjectSwitcher : MonoBehaviour
 {
     public GameObject happyScene; 
     public GameObject badScene;  
-    public float delayInSeconds = 28f; 
+    public float delayInSeconds = 28f;
 
     private void Start()
     {
@@ -25,8 +25,8 @@ public class ObjectSwitcher : MonoBehaviour
         }
     }
 
-    public void SwitchToNextScene()
+    private void SwitchToNextScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("CreditsRollScene");
     }
 }
