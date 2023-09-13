@@ -100,6 +100,7 @@ public class Paddle : MonoBehaviour
     {
         if (collision.CompareTag("Item"))
         {
+            NewSoundManager.instance.PlayPlayerItemPickupSound();
             Destroy(collision.gameObject);
             GetItem(collision);
         }

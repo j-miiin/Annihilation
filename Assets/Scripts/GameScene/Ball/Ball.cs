@@ -64,11 +64,14 @@ public class Ball : MonoBehaviour
         }
         else if (collision.collider.CompareTag("Paddle"))
         {
+            NewSoundManager.instance.PlayPlayerBallCollisionSound();
+
             _ballRb.velocity = Vector2.zero;
             _ballRb.AddForce((_ballRb.transform.position - collision.transform.position).normalized * paddle.GetComponent<Paddle>().ballSpeed);
         }
         else if (collision.collider.CompareTag("Meteor"))
         {
+            NewSoundManager.instance.PlayBallMeteorCollisionSound();
             // _ballRb.velocity = Vector2.zero;
             // _ballRb.AddForce((_ballRb.transform.position - contactPoint).normalized * paddle.GetComponent<Paddle>().ballSpeed);
             // _ballRb.AddForce((_ballRb.transform.position - collision.transform.position).normalized * paddle.GetComponent<Paddle>().ballSpeed);
