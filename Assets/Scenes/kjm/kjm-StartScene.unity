@@ -1191,6 +1191,8 @@ MonoBehaviour:
   _optionBtn: {fileID: 1157528173}
   _closeBtn: {fileID: 636499106}
   _optionMenu: {fileID: 171529692}
+  _soundSlider: {fileID: 4002122682860469687}
+  _soundIcon: {fileID: 6897723645138934422}
 --- !u!114 &158375120658680875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1633,7 +1635,7 @@ RectTransform:
   m_GameObject: {fileID: 8963760389293781748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8314118410722875315}
@@ -1642,7 +1644,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 80, y: -60}
+  m_SizeDelta: {x: 100, y: -60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2183314051249525887
 GameObject:
@@ -2147,7 +2149,7 @@ GameObject:
   - component: {fileID: 6123355824022506820}
   - component: {fileID: 6897723645138934422}
   m_Layer: 5
-  m_Name: Sound
+  m_Name: SoundIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
