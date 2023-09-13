@@ -8,8 +8,12 @@ public class NewSoundManager : MonoBehaviour
     public AudioClip ballMeteorCollisionSound;
     public AudioClip playerItemPickupSound;
     public AudioClip playerMeteorCollisionSound;
+    public AudioClip clickBtnSound;
+	public AudioClip failStageSound;
+	public AudioClip clearStageSound;
+	public AudioClip shootingSound;
 
-    private AudioSource audioSource;
+	private AudioSource audioSource;
 
     private void Awake()
     {
@@ -45,4 +49,23 @@ public class NewSoundManager : MonoBehaviour
     {
         audioSource.PlayOneShot(playerMeteorCollisionSound);
     }
+
+    public void PlayClickBtnSound()
+    {
+		audioSource.PlayOneShot(clickBtnSound);
+	}
+
+	public void PlayFailStageSound()
+	{
+		audioSource.PlayOneShot(failStageSound);
+	}
+	public void PlayClearStageSound()
+	{
+		audioSource.PlayOneShot(clearStageSound);
+	}
+	public void PlayShootingSound()
+	{
+		audioSource.PlayOneShot(shootingSound);
+	}
+
 }

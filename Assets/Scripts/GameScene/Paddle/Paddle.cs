@@ -223,7 +223,8 @@ public class Paddle : MonoBehaviour
         {
             for (int i = 0; i < 15; i++)
             {
-                GameObject Bullet = Instantiate(bullet, _paddleRb.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+				NewSoundManager.instance.PlayShootingSound();
+				GameObject Bullet = Instantiate(bullet, _paddleRb.transform.position + new Vector3(0f, 0.1f, 0f), Quaternion.identity);
                 Bullet.GetComponent<Rigidbody2D>().velocity = new Vector3(0f, 6f, 0f);
                 Destroy(Bullet, 5);
                 yield return new WaitForSeconds(0.3f);

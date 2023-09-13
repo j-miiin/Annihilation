@@ -1128,6 +1128,10 @@ MonoBehaviour:
   ballMeteorCollisionSound: {fileID: 8300000, guid: 0010e68f0b1988f4a931a071a51da9ac, type: 3}
   playerItemPickupSound: {fileID: 8300000, guid: 78b910999e228bd40b3eab142ef05aa6, type: 3}
   playerMeteorCollisionSound: {fileID: 8300000, guid: 7ac1c81df7f125e43b59df2e442e5660, type: 3}
+  clickBtnSound: {fileID: 8300000, guid: 80d3799791748ac42b3ec097c17a2383, type: 3}
+  failStageSound: {fileID: 8300000, guid: ac60cf0bb18fb724cb0b55d9ac6fac9c, type: 3}
+  clearStageSound: {fileID: 8300000, guid: 6412f0c3a5e30cb48b50d74db522aeed, type: 3}
+  shootingSound: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
 --- !u!4 &1381255780
 Transform:
   m_ObjectHideFlags: 0

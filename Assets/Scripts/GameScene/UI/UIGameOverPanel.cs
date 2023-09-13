@@ -38,7 +38,16 @@ public class UIGameOverPanel : MonoBehaviour
     // 스테이지 종료 시 Stage End Panel의 상태를 Set
     public void SetGameOverPanel(bool isClear, int score, int starRating)
     {
-        _gameOverText.text = isClear ? STAGE_CLEAR : STAGE_FAIL;
+		_gameOverText.text = isClear ? STAGE_CLEAR : STAGE_FAIL;
+
+        if (isClear == true)
+        {
+			NewSoundManager.instance.PlayClearStageSound();
+		}
+        else
+        {
+			NewSoundManager.instance.PlayFailStageSound();
+		}
         _scoreText.text = "SCORE " + (isClear ? score : 0);
 
         SetStarImage(starRating);

@@ -77,7 +77,13 @@ public class Stage : MonoBehaviour
             starRating = GetStageStarResult();  // 스테이지를 클리어했다면 별점을 계산
             GameManager.Instance.SaveData(starRating);
             GameManager.Instance.UpdateLockedStage();
-        } 
+			
+		    NewSoundManager.instance.PlayClearStageSound();
+		}
+        else
+        {
+			NewSoundManager.instance.PlayFailStageSound();
+		}
         _gameOverPanel.SetGameOverPanel(isClear, _score, starRating);
     }
 
