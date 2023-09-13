@@ -3,7 +3,15 @@ guid: d168f21ad89c81f4c9be7c9c311de5ed
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerBallCollisionSound: {instanceID: 0}
+  - ballMeteorCollisionSound: {instanceID: 0}
+  - playerItemPickupSound: {instanceID: 0}
+  - playerMeteorCollisionSound: {instanceID: 0}
+  - clickBtnSound: {instanceID: 0}
+  - failStageSound: {instanceID: 0}
+  - clearStageSound: {instanceID: 0}
+  - shootingSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
