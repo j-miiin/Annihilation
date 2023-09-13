@@ -17,11 +17,13 @@ public class Paddle : MonoBehaviour
     private Rigidbody2D _ballRb;
     private SpriteRenderer _ballSr;
     private CircleCollider2D _ballCc;
+    private TrailRenderer _trailRenderer;
 
     private bool _isShoot = false;
     private float _rotationX;
     private float _paddlespeed = 5.0f;
     private Sprite[] _changePaddleAndBall;
+    private PlayerHealth _playerHealth;
 
     public float baseBallSpeed = 250;
     public float ballSpeed;
@@ -30,13 +32,19 @@ public class Paddle : MonoBehaviour
     public KeyCode Right;
     public KeyCode Space;
 
+    private PaddleType paddleType;
+
     void Start()
     {
         _changePaddleAndBall = new Sprite[]
         {
             Resources.Load<Sprite>("Image/PaddleImage/PaddleBig"),
             Resources.Load<Sprite>("Image/PaddleImage/PaddleNormal"),
-            Resources.Load<Sprite>("Image/PaddleImage/PaddleSmall")
+            Resources.Load<Sprite>("Image/PaddleImage/PaddleSmall"),
+            Resources.Load<Sprite>("Image/PaddleImage/CheeseBig"),
+            Resources.Load<Sprite>("Image/PaddleImage/CheeseNormal"),
+            Resources.Load<Sprite>("Image/PaddleImage/CheeseSmall")
+
         };
 
         _paddleRb = gameObject.GetComponent<Rigidbody2D>();
@@ -46,6 +54,12 @@ public class Paddle : MonoBehaviour
         _ballRb = ball.GetComponent<Rigidbody2D>();
         _ballSr = ball.GetComponent<SpriteRenderer>();
         _ballCc = ball.GetComponent<CircleCollider2D>();
+        _trailRenderer = ball.GetComponent<TrailRenderer>();
+        _playerHealth = GetComponent<PlayerHealth>();
+
+        paddleType = GameManager.Instance.GetPaddleType();
+
+        _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1];
 
         StopCoroutine("GameInit");
         StartCoroutine("GameInit");
@@ -71,7 +85,7 @@ public class Paddle : MonoBehaviour
             {
                 _isShoot = true;
                 ballSpeed = baseBallSpeed;
-                _ballRb.AddForce(new Vector2(0.1f, 0.9f).normalized * ballSpeed);      // Ã³À½ ¹ß»ç ¹æÇâ ÀÏ´Ü °íÁ¤µÇ¾î ÀÖÀ½
+                _ballRb.AddForce(new Vector2(0.1f, 0.9f).normalized * ballSpeed);      // Ã³ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
             yield return new WaitForSeconds(0.01f);
         }
@@ -99,7 +113,7 @@ public class Paddle : MonoBehaviour
                 StartCoroutine("Item_paddle_small", false);
                 Debug.Log("Get Item_paddle_small");
                 break;
-            case "Item_ball_fast":         // 15ÃÊµ¿¾È °ø 1.2¹è »¡¶óÁü
+            case "Item_ball_fast":         // 15ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ 1.2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 StopCoroutine("Item_ball_fast");
                 StartCoroutine("Item_ball_fast", false);
                 Debug.Log("Get Item_ball_fast");
@@ -109,12 +123,12 @@ public class Paddle : MonoBehaviour
                 StartCoroutine("Item_paddle_big", false);
                 Debug.Log("Get Item_paddle_big");
                 break;
-            case "Item_ball_strongball":    // 10ÃÊµ¿¾È ÇÑ¹ø¿¡ 3°ã¾¿ ºÎ¼ö´Â °ø (¸ðµç º®µ¹ ÇÑ¹æ)
+            case "Item_ball_strongball":    // 10ï¿½Êµï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ 3ï¿½ã¾¿ ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½)
                 StopCoroutine("Item_ball_strongball");
                 StartCoroutine("Item_ball_strongball", false);
                 Debug.Log("Item_ball_strongball");
                 break;
-            case "Item_paddle_shoot":       // 4.5ÃÊµ¿¾È ÃÑ¾ËÀÌ Áß¾Ó¿¡¼­ ÀÚµ¿À¸·Î 1¹ß¾¿ 15¹ø ¹ß»ç (¸ðµç º®µ¹ ÇÑ¹æ)
+            case "Item_paddle_shoot":       // 4.5ï¿½Êµï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ï¿½ ï¿½ß¾Ó¿ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ß¾ï¿½ 15ï¿½ï¿½ ï¿½ß»ï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½)
                 StopCoroutine("Item_paddle_shoot");
                 StartCoroutine("Item_paddle_shoot", false);
                 Debug.Log("Get Item_paddle_shoot");
@@ -130,37 +144,41 @@ public class Paddle : MonoBehaviour
     {
         if (!skip)
         {
-            if (_paddleSr.size.x < 0.8f) // ÀÛÀº »óÅÂÀÏ ¶§
+            if (_paddleSr.size.x < 0.8f) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             {
                 _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
                 _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
-                _paddleSr.sprite = _changePaddleAndBall[1];
+                _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1];   // Normalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                Debug.Log(_paddleSr.sprite.name);
             }
-            else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // Áß°£ Å©±â »óÅÂÀÏ ¶§
+            else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // ï¿½ß°ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             {
                 _paddleSr.size = new Vector2(_paddleSr.size.x + 0.25f, 0.2f);
                 _paddleBc.size = new Vector2(_paddleBc.size.x + 0.2f, 0.2f);
-                _paddleSr.sprite = _changePaddleAndBall[0];
+                _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3]; // Bigï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                Debug.Log(_paddleSr.sprite.name);
             }
-            else { }    // ÀÌ¹Ì Ä¿Áø »óÅÂÀÏ ¶§ ¾Æ¹«°Íµµ ¾ÈÇÔ (½ºÄÚ¾î ¿Ã¸±¼ø ÀÖÀ½)
+            else { }    // ï¿½Ì¹ï¿½ Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½Ú¾ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
             yield return new WaitForSeconds(1);
         }
     }
     IEnumerator Item_paddle_small(bool skip)
     {
-        if (_paddleSr.size.x > 1.2f) // Å« »óÅÂÀÏ ‹š
+        if (_paddleSr.size.x > 1.2f) // Å« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
             _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
             _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
-            _paddleSr.sprite = _changePaddleAndBall[1];
+            _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 1]; // Normalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            Debug.Log(_paddleSr.sprite.name);
         }
-        else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // Áß°£ Å©±â »óÅÂÀÏ ¶§
+        else if (_paddleSr.size.x < 1.2f && _paddleSr.size.x > 0.8f)  // ï¿½ß°ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
             _paddleSr.size = new Vector2(_paddleSr.size.x - 0.25f, 0.2f);
             _paddleBc.size = new Vector2(_paddleBc.size.x - 0.2f, 0.2f);
-            _paddleSr.sprite = _changePaddleAndBall[2];
+            _paddleSr.sprite = _changePaddleAndBall[(int)paddleType * 3 + 2];     // Smallï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            Debug.Log(_paddleSr.sprite.name);
         }
-        else { }    // ÀÌ¹Ì ÀÛÀº »óÅÂÀÏ ¶§ ¾Æ¹«°Íµµ ¾ÈÇÔ (½ºÄÚ¾î ¿Ã¸±¼ø ÀÖÀ½)
+        else { }    // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½Ú¾ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         yield return new WaitForSeconds(1);
     }
     IEnumerator Item_ball_fast(bool skip)
@@ -178,10 +196,25 @@ public class Paddle : MonoBehaviour
         {
             _ballSr.color = Color.blue;
             _ballCc.tag = "Strongball";
+
+            if (_trailRenderer != null)
+            {
+                _trailRenderer.startColor = Color.blue;
+                _trailRenderer.endColor = Color.white;
+            }
+
             yield return new WaitForSeconds(10);
         }
+
         _ballSr.color = Color.white;
         _ballCc.tag = "Ball";
+
+        if (_trailRenderer != null)
+        {
+            // RGBA °ªÀ» 0¿¡¼­ 1 »çÀÌÀÇ °ªÀ¸·Î Á¤±ÔÈ­
+            _trailRenderer.startColor = Color.red;
+            _trailRenderer.endColor = Color.white;
+        }
     }
     IEnumerator Item_paddle_shoot(bool skip)
     {
@@ -199,8 +232,11 @@ public class Paddle : MonoBehaviour
     IEnumerator Item_add_life(bool skip)
     {
         if (!skip)
-        { 
-            yield return new WaitForSeconds(1);
+        {
+            _playerHealth.playerHealth += 1;
+            _playerHealth.UpdateHealth();
+            yield return new WaitForSeconds(0);
         }
+        
     }
 }

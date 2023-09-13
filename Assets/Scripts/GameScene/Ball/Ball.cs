@@ -14,8 +14,19 @@ public class Ball : MonoBehaviour
     private Rigidbody2D _ballRb;
     private float _ballMag;
 
+    private Sprite[] _ballSprite;
+    
     void Start()
     {
+        _ballSprite = new Sprite[]
+        {
+            Resources.Load<Sprite>("Image/BallImage/DefaultBall"),
+            Resources.Load<Sprite>("Image/BallImage/CheeseBall")
+        };
+
+        PaddleType paddleType = GameManager.Instance.GetPaddleType();
+        gameObject.GetComponent<SpriteRenderer>().sprite = _ballSprite[(int)paddleType];
+
         _ballRb = gameObject.GetComponent<Rigidbody2D>();
         paddle = GameObject.Find("Paddle");
     }
