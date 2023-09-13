@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class UIStartSceneCanvas : MonoBehaviour
 {
+    [SerializeField] private SoundManager _soundManager;
     [SerializeField] private Button _startBtn;
     [SerializeField] private Button _optionBtn;
     [SerializeField] private Button _closeBtn;
@@ -26,6 +27,7 @@ public class UIStartSceneCanvas : MonoBehaviour
     {
         if (_soundSlider.value == 0) _soundIcon.color = Color.black;
         else _soundIcon.color = Color.white;
+        _soundManager.SetMusicVolume(_soundSlider.value);
     }
 
     public void GoStageScene()
