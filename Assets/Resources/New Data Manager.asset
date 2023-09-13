@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e9a78e86d3bcf4c99a91ca20749e03, type: 3}
   m_Name: New Data Manager
   m_EditorClassIdentifier: 
-  curStage: 2
-  lockedStage: 2
+  curStage: 1
+  lockedStage: 1
   easyStar: 0
   normalStar: 0
   hardStar: 0
