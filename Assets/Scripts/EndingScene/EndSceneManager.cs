@@ -7,6 +7,11 @@ public class ObjectSwitcher : MonoBehaviour
     public GameObject badScene;  
     public float delayInSeconds = 28f;
 
+    private void Awake()
+    {
+        Time.timeScale = 1;
+    }
+
     private void Start()
     {
         Invoke("SwitchObjects", delayInSeconds);

@@ -45,7 +45,7 @@ public class Stage : MonoBehaviour
         Time.timeScale = 1f;
         _isOver = false;
 
-        //Instantiate(Resources.Load<GameObject>("Prefabs/Stages/" + _meteorPrefabName));
+        Instantiate(Resources.Load<GameObject>("Prefabs/Stages/" + _meteorPrefabName));
     }
 
     private void InitUIComponent()
