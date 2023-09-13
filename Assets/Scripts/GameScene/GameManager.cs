@@ -104,6 +104,6 @@ public class GameManager : MonoBehaviour
             _dataManager.curStage += 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        //else SceneManager.LoadScene("EndingScene");
+        else SceneManager.LoadScene("EndScene");
     }
 }
