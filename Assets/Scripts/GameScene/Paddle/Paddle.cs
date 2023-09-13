@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 public class Paddle : MonoBehaviour
 {
     public GameObject item;
-    public GameObject paddle;
     public GameObject ball;
     public GameObject bullet;
 
@@ -18,9 +17,6 @@ public class Paddle : MonoBehaviour
     private Rigidbody2D _ballRb;
     private SpriteRenderer _ballSr;
     private CircleCollider2D _ballCc;
-
-    private GameObject[] _meteor;
-    private BoxCollider2D[] _meteorBc;
 
     private bool _isShoot = false;
     private float _rotationX;
@@ -40,25 +36,16 @@ public class Paddle : MonoBehaviour
         {
             Resources.Load<Sprite>("Image/PaddleImage/PaddleBig"),
             Resources.Load<Sprite>("Image/PaddleImage/PaddleNormal"),
-            Resources.Load<Sprite>("Image/PaddleImage/PaddleSmall"),
-            Resources.Load<Sprite>("Image/PaddleImage/Ball")
+            Resources.Load<Sprite>("Image/PaddleImage/PaddleSmall")
         };
 
-        _paddleRb = paddle.GetComponent<Rigidbody2D>();
-        _paddleSr = paddle.GetComponent<SpriteRenderer>();
-        _paddleBc = paddle.GetComponent<BoxCollider2D>();
+        _paddleRb = gameObject.GetComponent<Rigidbody2D>();
+        _paddleSr = gameObject.GetComponent<SpriteRenderer>();
+        _paddleBc = gameObject.GetComponent<BoxCollider2D>();
 
         _ballRb = ball.GetComponent<Rigidbody2D>();
         _ballSr = ball.GetComponent<SpriteRenderer>();
         _ballCc = ball.GetComponent<CircleCollider2D>();
-
-        /*
-        _meteor = GameObject.FindGameObjectsWithTag("Meteor");
-        for (int i = 0; i < _meteor.Length; i++)
-        {
-            _meteorBc[i] = _meteor[i].GetComponent<BoxCollider2D>();
-        }
-        */
 
         StopCoroutine("GameInit");
         StartCoroutine("GameInit");
@@ -73,7 +60,7 @@ public class Paddle : MonoBehaviour
 
         if (_isShoot == false)
         {
-            _ballRb.transform.position = _paddleRb.transform.position + new Vector3(0, 0.13f, 0);
+            _ballRb.transform.position = _paddleRb.transform.position + new Vector3(0, 0.12f, 0);
         }
     }
     IEnumerator GameInit()
@@ -216,35 +203,4 @@ public class Paddle : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
     }
-    
-    /*
-    IEnumerator Item_ball_three(bool skip)
-    {
-        if (!skip)
-        {
-            
-            yield return new WaitForSeconds(1);
-        }
-    }
-    IEnumerator Item_ball_fireball(bool skip)
-    {
-        if (!skip)
-        {
-            _ballSr.color = Color.red;
-            for (int i = 0; i < _meteorBc.Length; i++)
-            {
-                _meteorBc[i].tag = "WeakMeteor";
-                _meteorBc[i].isTrigger = true;
-            }
-            yield return new WaitForSeconds(4);
-        }
-        _ballSr.color = Color.white;
-        for (int i = 0; i < _meteorBc.Length; i++)
-        {
-            _meteorBc[i].tag = "Meteor";
-            _meteorBc[i].isTrigger = false;
-        }
-    }
-    */
-    
 }
