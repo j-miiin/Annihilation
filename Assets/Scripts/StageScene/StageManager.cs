@@ -43,7 +43,7 @@ public class StageManager : MonoBehaviour
 
     public int GetStarNum(int stage)
     {
-        if (stage == 1) return _dataManager.easyStar;
+        if (stage <= 1) return _dataManager.easyStar;
         else if (stage == 2) return _dataManager.normalStar;
         else return _dataManager.hardStar;
     }
