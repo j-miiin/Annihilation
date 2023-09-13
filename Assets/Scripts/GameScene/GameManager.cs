@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public PaddleType GetPaddleType()
+    {
+        return (PaddleType)_dataManager.paddleInfo;
+    }
+
     public void GameOver()
     {
         _isOver = true;
