@@ -123,12 +123,12 @@ public class Paddle : MonoBehaviour
                 StartCoroutine("Item_paddle_big", false);
                 Debug.Log("Get Item_paddle_big");
                 break;
-            case "Item_ball_strongball":    // 10�ʵ��� �ѹ��� 3�㾿 �μ��� �� (��� ���� �ѹ�)
+            case "Item_ball_strongball":    // 10�ʵ��� �ѹ��� 3�㾿 �μ��� �� (���?���� �ѹ�)
                 StopCoroutine("Item_ball_strongball");
                 StartCoroutine("Item_ball_strongball", false);
                 Debug.Log("Item_ball_strongball");
                 break;
-            case "Item_paddle_shoot":       // 4.5�ʵ��� �Ѿ��� �߾ӿ��� �ڵ����� 1�߾� 15�� �߻� (��� ���� �ѹ�)
+            case "Item_paddle_shoot":       // 4.5�ʵ��� �Ѿ��� �߾ӿ��� �ڵ����� 1�߾� 15�� �߻� (���?���� �ѹ�)
                 StopCoroutine("Item_paddle_shoot");
                 StartCoroutine("Item_paddle_shoot", false);
                 Debug.Log("Get Item_paddle_shoot");
