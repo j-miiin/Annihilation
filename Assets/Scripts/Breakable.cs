@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class Breakable : MonoBehaviour
 {
     [SerializeField] private GameObject _replacement;
@@ -6,6 +7,9 @@ public class Breakable : MonoBehaviour
     [SerializeField] private float _collisionMultiplier = 100;
     [SerializeField] private bool _broken;
     [SerializeField] private ParticleSystem _explosionParticleSystem;
+    [SerializeField] private AudioSource _audioSource; // AudioSource 컴포넌트 추가
+
+    public AudioClip collisionSound; // 충돌 사운드 클립
 
     void OnCollisionEnter(Collision collision)
     {
@@ -19,6 +23,13 @@ public class Breakable : MonoBehaviour
                 _explosionParticleSystem.Play();
             }
 
+            // 충돌 사운드 재생
+            if (_audioSource != null && collisionSound != null)
+            {
+                _audioSource.clip = collisionSound;
+                _audioSource.Play();
+            }
+
             var replacement = Instantiate(_replacement, transform.position, transform.rotation);
 
             var rbs = replacement.GetComponentsInChildren<Rigidbody>();
@@ -30,5 +41,4 @@ public class Breakable : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }
