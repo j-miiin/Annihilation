@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
         return (PaddleType)_dataManager.paddleInfo;
     }
 
+    public int GetCurStage()
+    {
+        return _curStage;
+    }
+
     public void GameOver()
     {
         _isOver = true;
