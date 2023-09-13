@@ -14,6 +14,7 @@ public class StageManager : MonoBehaviour
 	[SerializeField] float fadeTime = 1f;
 
     private UISwipeStageThumbnail _uiSwipeStageThumbnail;
+    private UISelectPaddleSkinPanel _uiSelectPaddleSkinPanel;
 
     public static StageManager Instance;
 
@@ -25,6 +26,7 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         _uiSwipeStageThumbnail = StageUIManager.Instance.GetUIComponent<UISwipeStageThumbnail>();
+        _uiSelectPaddleSkinPanel = StageUIManager.Instance.GetUIComponent<UISelectPaddleSkinPanel>();
     }
 
     // 게임 시작 시 유저가 선택한 UI에 따라 각각 다른 stage value를 설정 후 해금된 스테이지라면 게임씬 로드
@@ -49,5 +51,10 @@ public class StageManager : MonoBehaviour
     public void DeletePlayerInfo()
     {
         PlayerPrefs.DeleteKey("StarRating");
+    }
+
+    public void SavePaddleInfo(PaddleType paddleInfo)
+    {
+        _dataManager.paddleInfo = (int)paddleInfo;
     }
 }

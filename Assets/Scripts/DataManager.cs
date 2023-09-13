@@ -11,4 +11,6 @@ public class DataManager : ScriptableObject
     public int easyStar = 0;
     public int normalStar = 0;
     public int hardStar = 0;
+
+    public int paddleInfo = 0;
 }
