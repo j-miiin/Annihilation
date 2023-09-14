@@ -15,6 +15,15 @@
 
 <br>
 
+## [🎮 YouTube](https://www.youtube.com/watch?v=XfUPwbHzX4o)
+## [🤍 Team Notion](https://teamsparta.notion.site/08-814d16993a734e0b97c716e95ebf4c0e)
+
+<br>
+
+* * *
+
+<br>
+
 ## 프로젝트 미리 보기
 
 [⭐ 목차로 돌아가기 ⭐](#목차)
@@ -141,9 +150,5 @@
 <a href="https://github.com/j-miiin/Annihilation/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=j-miiin/Annihilation" />
 </a>
-
-<br><br>
-
-<a href="https://teamsparta.notion.site/08-814d16993a734e0b97c716e95ebf4c0e">🤍 Team Notion 🤍</a>
 
 <br><br>
