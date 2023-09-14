@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UISwipeStageThumbnail : MonoBehaviour
 {
@@ -12,12 +14,14 @@ public class UISwipeStageThumbnail : MonoBehaviour
     [SerializeField] private GameObject _star2FilledImage;
     [SerializeField] private GameObject _star3FilledImage;
     [SerializeField] private TMP_Text _stageLevelText;
+    [SerializeField] private Button _backBtn;
 
     public static UISwipeStageThumbnail Instance;
 
     private void Awake()
     {
         Instance = this;
+        _backBtn.onClick.AddListener(() => { SceneManager.LoadScene("StartScene"); });
     }
 
     public void SetStageStarImage(int star)
