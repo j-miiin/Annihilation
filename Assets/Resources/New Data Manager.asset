@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Data Manager
   m_EditorClassIdentifier: 
   curStage: 1
-  lockedStage: 1
+  lockedStage: 3
   easyStar: 0
   normalStar: 0
   hardStar: 0

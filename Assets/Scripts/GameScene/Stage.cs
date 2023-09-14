@@ -11,6 +11,7 @@ public class Stage : MonoBehaviour
 {
     private UIGameOverPanel _gameOverPanel;
     private UIScoreAndTimePanel _scoreAndTimePanel;
+    private UIPauseCanvas _UIPauseCanvas;
 
     // 생성할 운석 grid prefab
     private string _meteorPrefabName;
@@ -52,6 +53,8 @@ public class Stage : MonoBehaviour
     {
         _gameOverPanel = GameUIManager.Instance.GetUIComponent<UIGameOverPanel>();
         _scoreAndTimePanel = GameUIManager.Instance.GetUIComponent<UIScoreAndTimePanel>();
+        _UIPauseCanvas = GameUIManager.Instance.GetUIComponent<UIPauseCanvas>();
+
     }
 
     private void UpdateTime()
