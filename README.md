@@ -86,6 +86,9 @@
 
 [⭐ 목차로 돌아가기 ⭐](#목차)
 
+- Class Diagram
+![ClassDiagram](https://github.com/j-miiin/Annihilation/assets/62470991/f50f3807-1369-46d8-85a8-ff64c0f89b74)
+
 - StartScene
 
 | Script | 기능 |
