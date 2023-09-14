@@ -120,6 +120,8 @@
 |  GameManager | [게임 종료 패널 - 홈, 재시작, 다음 스테이지 버튼](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/GameManager.cs#L90-L112) |
 | UIGameOverPanel| [게임 종료 패널 - UI](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/UI/UIGameOverPanel.cs#L39-L50) |
 | UIScoreAndTimePanel | [점수, 시간 UI 표시](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/UI/UIScoreAndTimePanel.cs#L11-L19) |
+| DataManager | [플레이어 저장 데이터](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/DataManager.cs#L6-L15) |
+| NewSoundManager | [인게임 오디오 처리](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/NewSoundManager.cs#L32-L70) |
 
 <br>
 
