@@ -109,7 +109,8 @@
 | :---: | :---: |
 | Stage | [Stage Map Load](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/Stage.cs#L48) |
 | | [Stage - 게임 종료 로직](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/Stage.cs#L71-L97) |
-| Ball | [Ball - 충돌 처리](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/Ball/Ball.cs#L53-L88) |
+| Paddle | [Paddle - 공 충돌 처리](https://github.com/j-miiin/Annihilation/blob/cea49f90867e2453c749d5b44d583b10a070e679/Assets/Scripts/GameScene/Paddle/Paddle.cs#L64-L98) |
+| Ball | [Ball - 충돌 처리](https://github.com/j-miiin/Annihilation/blob/cea49f90867e2453c749d5b44d583b10a070e679/Assets/Scripts/GameScene/Ball/Ball.cs#L34-L89) |
 | Paddle | [Paddle - 아이템 충돌 처리](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/Paddle/Paddle.cs#L99-L143) |
 | Meteor | [Meteor - 충돌 처리](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/MeteorClass/Meteor.cs#L44-L84) |
 | Ball | [Ball - Skin 변경](https://github.com/j-miiin/Annihilation/blob/c478972b67b21d1a6f654e42da1d63a61b3e8bcd/Assets/Scripts/GameScene/Ball/Ball.cs#L21-L28) |
