@@ -65,7 +65,7 @@
 
 <br>
 
-![슬라이드11](https://github.com/j-miiin/Annihilation/assets/62470991/1cc1e9af-8b5a-4719-bc96-e06b49c7bd52)
+![슬라이드11](https://github.com/j-miiin/Annihilation/assets/62470991/46e0f417-d25f-43b2-a0db-32888422f848)
 
 <br>
 
@@ -103,7 +103,10 @@
 | Ball | [Ball - 충돌 처리](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/Ball/Ball.cs#L53-L88) |
 | Paddle | [Paddle - 아이템 충돌 처리](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/Paddle/Paddle.cs#L99-L143) |
 | Meteor | [Meteor - 충돌 처리](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/MeteorClass/Meteor.cs#L44-L84) |
-| | [Paddle - Skin UI 변경]() |
+| Ball | [Ball - Skin 변경](https://github.com/j-miiin/Annihilation/blob/c478972b67b21d1a6f654e42da1d63a61b3e8bcd/Assets/Scripts/GameScene/Ball/Ball.cs#L21-L28) |
+| Paddle | [Paddle - Skin 변경](https://github.com/j-miiin/Annihilation/blob/c478972b67b21d1a6f654e42da1d63a61b3e8bcd/Assets/Scripts/GameScene/Paddle/Paddle.cs#L62) |
+| PaddleHealth | [Paddle 체력 관리](https://github.com/j-miiin/Annihilation/blob/c478972b67b21d1a6f654e42da1d63a61b3e8bcd/Assets/Scripts/GameScene/Paddle/PaddleHealth.cs#L92-L97) |
+|  | [Paddle 체력 관리 - UI](https://github.com/j-miiin/Annihilation/blob/c478972b67b21d1a6f654e42da1d63a61b3e8bcd/Assets/Scripts/GameScene/Paddle/PaddleHealth.cs#L36-L54) |
 |  GameManager | [게임 종료 패널 - 홈, 재시작, 다음 스테이지 버튼](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/GameManager.cs#L90-L112) |
 | UIGameOverPanel| [게임 종료 패널 - UI](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/UI/UIGameOverPanel.cs#L39-L50) |
 | UIScoreAndTimePanel | [점수, 시간 UI 표시](https://github.com/j-miiin/Annihilation/blob/ad71eb852afb0f7580b9fc358adc50ae26060710/Assets/Scripts/GameScene/UI/UIScoreAndTimePanel.cs#L11-L19) |
